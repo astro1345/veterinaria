@@ -1,0 +1,48 @@
+/* Estilos base */
+.bg-aqua {
+    background-color: #1eb8b8 !important;
+}
+
+.custom-navbar {
+    position: relative;
+    z-index: 1000;
+    
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        background-color: #1eb8b8;
+        border-bottom-left-radius: 100% 100%;
+        border-bottom-right-radius: 100% 100%;
+        z-index: -1;
+    }
+}
+
+.navbar-huellas {
+    position: absolute;
+    bottom: 20%; 
+    right: 5%;
+    font-size: 1.5rem;
+    color: black;
+    z-index: 0;
+}
+
+/* Estilos para los iconos */
+.bi {
+    font-size: 1.1rem; /* Tamaño consistente para todos los iconos */
+    vertical-align: middle;
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+    color: white !important;
+    border: 1px solid white !important;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+}
