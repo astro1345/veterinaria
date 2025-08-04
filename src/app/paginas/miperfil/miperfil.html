@@ -1,1 +1,122 @@
-<p>miperfil works!</p>
+<app-navbar></app-navbar>
+  <br>  <br>  <br>
+<body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh; margin: 0;">
+  
+  <main style="padding-top: 40px;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card shadow-lg">
+            <div class="card-body">
+              <h3 class="text-center mb-4">Mi Perfil</h3>
+
+              <form>
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre completo</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nombre"
+                    placeholder="Ej. Juan Pérez"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Ej. juan@example.com"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="telefono"
+                    placeholder="Ej. 9999-0000"
+                  />
+                </div>
+<div class="form-check form-switch mt-4">
+  <input 
+    class="form-check-input" 
+    type="checkbox" 
+    id="modoVeterinario"
+  >
+  <label class="form-check-label" for="modoVeterinario">
+    Activar modo veterinario
+  </label>
+</div>
+ <!-- Sección veterinaria solo si se activa el modo -->
+              <div  class="mt-4">
+                <hr />
+                <h5 class="mb-3">Información veterinaria</h5>
+
+                <div class="mb-3">
+                  <label for="colegiacion" class="form-label">N° de colegiación</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="colegiacion"
+             
+                    name="colegiacion"
+                    placeholder="Ej. VET-12345"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="especialidad" class="form-label">Especialidad (opcional)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="especialidad"
+              
+                    name="especialidad"
+                    placeholder="Ej. Cirugía, Dermatología"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="experiencia" class="form-label">Años de experiencia</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="experiencia"
+                
+                    name="experiencia"
+                    placeholder="Ej. 5"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="clinica" class="form-label">Clínica asociada (opcional)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="clinica"
+               
+                    name="clinica"
+                    placeholder="Ej. VetSalud Centro"
+                  />
+                </div>
+              </div>
+
+                <div class="text-end">
+                  <button type="submit" class="btn btn-success">Guardar cambios</button>
+                </div>
+                
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+
+  <app-footer></app-footer>
+</body>

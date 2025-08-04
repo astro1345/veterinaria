@@ -4,21 +4,30 @@ export const routes: Routes = [
 
 {
     path: '',
-    loadComponent: () => import('./componentes/login/login').then(m => m.Login)
+    loadComponent: () => import('./paginas/login/login').then(m => m.Login)
 },
 {
     path: 'inicio',
-    loadComponent: () => import('./componentes/inicio/inicio').then(m => m.Inicio)
+    loadComponent: () => import('./paginas/inicio/inicio').then(m => m.Inicio)
 },
 {
     path: 'registro',
-    loadComponent: () => import('./componentes/registro/registro').then(m => m.Registro)
+    loadComponent: () => import('./paginas/registro/registro').then(m => m.Registro)
 },
 
 {
     path: 'perfilmascota',
-    loadComponent: () => import('./componentes/perfilmascota/perfilmascota').then(m => m.Perfilmascota)
+    loadComponent: () => import('./paginas/perfilmascota/perfilmascota').then(m => m.Perfilmascota)
+  },
+  {
+    path: 'miperfil',
+    loadComponent: () => import('./paginas/miperfil/miperfil').then(m => m.Miperfil)
+  },
+    {
+    path: 'pacientes',
+    loadComponent: () => import('./paginas/pacientes/pacientes').then(m => m.Pacientes)
   }
+
 
 
 ];
