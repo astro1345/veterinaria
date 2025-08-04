@@ -1,0 +1,33 @@
+
+        .btn-agregar {
+            background-color: #1eb8b8;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-agregar:hover {
+            background-color: #17a2a2;
+            cursor: pointer;
+        }
+
+        .footer-huellas,
+        .navbar-huellas {
+            position: absolute;
+            font-size: 1.5rem;
+            /*opacity: 0.2;*/
+            color: black;
+        }
+
+
+        .navbar-huellas {
+            z-index: 0;
+        }
+

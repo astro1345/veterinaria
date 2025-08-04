@@ -1,0 +1,62 @@
+<!-- Navbar como componente -->
+<app-navbar></app-navbar>
+  <br>  <br>  <br>
+<body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh; margin: 0;">
+  
+  <main style="padding-top: 40px;">
+
+<section class="py-5 bg-light">
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Mis pacientes</h2>
+      <div class="d-flex justify-content-end mb-3 gap-2">
+  <button class="btn-agregar">
+    <span style="font-size: 22px;">&#43;</span> Agregar
+  </button>
+
+  <div class="input-group buscador">
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <input type="text" class="form-control" placeholder="Buscar paciente...">
+  </div>
+</div>
+
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">Sasha</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" routerLink="/perfilmascota">Ver
+                                Informacion</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">Chester</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver
+                                Informacion</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer como componente -->
+
+  </main>
+
+  <app-footer></app-footer>
+</body>
