@@ -15,4 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./componentes/registro/registro').then(m => m.Registro)
 },
 
+{
+    path: 'perfilmascota',
+    loadComponent: () => import('./componentes/perfilmascota/perfilmascota').then(m => m.Perfilmascota)
+  }
+
+
 ];
