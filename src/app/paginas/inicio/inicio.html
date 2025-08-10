@@ -1,58 +1,57 @@
-<!-- Navbar como componente -->
+<!-- inicio.html -->
 <app-navbar></app-navbar>
 
 
 <section class="py-5 bg-light">
-    <!-- Card Notificaciones alineado a la izquierda -->
-    <div class="d-flex justify-content-start mb-4" style="margin-left: 192px; margin-top: 50px;">
-        <div class="card" style="width: 30rem;">
-            <div class="huella-decorativa" style="top: 20%; left: 5%; transform: rotate(30deg);">🐾</div>
-            <div class="card-body">
-                <h5 class="card-title">Notificaciones</h5>
-                <p class="card-text">Aún no tienes notificaciones.</p>
-            </div>
-        </div>
+  <!-- Card Notificaciones alineado a la izquierda -->
+  <div class="d-flex justify-content-start mb-4" style="margin-left: 192px; margin-top: 50px;">
+    <div class="card" style="width: 30rem;">
+      <div class="huella-decorativa" style="top: 20%; left: 5%; transform: rotate(30deg);">🐾</div>
+      <div class="card-body">
+        <h5 class="card-title">Notificaciones</h5>
+        <p class="card-text">Aún no tienes notificaciones.</p>
+      </div>
     </div>
-    <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Mis mascotas</h2>
-        <div class="d-flex justify-content-end mb-3">
-            <button class="btn-agregar">
-                <span style="font-size: 22px;">&#43;</span> Agregar
-            </button>
-        </div>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">Sasha</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" routerLink="/perfilmascota">Ver
-                                Informacion</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">Chester</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver
-                                Informacion</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  </div>
+
+  <div class="container px-4 px-lg-5 mt-5">
+    <h2 class="fw-bolder mb-4">Mis mascotas</h2>
+    <div class="d-flex justify-content-end mb-3">
+      <button (click)="abrirModal()" class="btn-agregar">
+        <span style="font-size: 22px;">&#43;</span> Agregar Mascota
+      </button>
     </div>
+
+    <!-- Modal para agregar mascota -->
+    <div *ngIf="mostrarModal" class="modal-overlay">
+      <app-mascotaform 
+        (guardarMascota)="agregarMascota($event)"
+        (cerrarModal)="cerrarModal()">
+      </app-mascotaform>
+    </div>
+
+    <!-- Listado de mascotas en cards -->
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div *ngFor="let mascota of mascotas" class="col mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="Foto de {{mascota.nombre}}" />
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder">{{mascota.nombre}}</h5>
+              <p>{{mascota.raza}} - {{mascota.edad}} años</p>
+            </div>
+          </div>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center d-flex justify-content-between">
+              <a class="btn btn-outline-dark mt-auto" [routerLink]="['/perfilmascota']">Ver Información</a>
+              <button class="btn btn-danger mt-auto" (click)="eliminarMascota(mascota.idmascota)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Footer como componente -->
+
 <app-footer></app-footer>

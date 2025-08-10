@@ -1,33 +1,45 @@
+/* inicio.scss */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-        .btn-agregar {
-            background-color: #1eb8b8;
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.3s ease;
-        }
+.btn-agregar {
+  background-color: #1eb8b8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
 
-        .btn-agregar:hover {
-            background-color: #17a2a2;
-            cursor: pointer;
-        }
+.btn-agregar:hover {
+  background-color: #1eb8b8;
+}
 
-        .footer-huellas,
-        .navbar-huellas {
-            position: absolute;
-            font-size: 1.5rem;
-            /*opacity: 0.2;*/
-            color: black;
-        }
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
 
-        .navbar-huellas {
-            z-index: 0;
-        }
-
+.huella-decorativa {
+  position: absolute;
+  opacity: 0.1;
+  font-size: 3rem;
+}
