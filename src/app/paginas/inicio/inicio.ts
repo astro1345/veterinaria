@@ -5,6 +5,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { Mascotas } from '../../servicios/mascotas';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { Mascotaform } from '../../componentes/mascotaform/mascotaform';  
+
 @Component({
   selector: 'app-inicio',
   standalone: true,
@@ -12,6 +13,7 @@ import { Mascotaform } from '../../componentes/mascotaform/mascotaform';
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss'
 })
+
 export class Inicio {
   mascotaService = inject(Mascotas);
   mascotas: any[] = [];
@@ -32,6 +34,7 @@ export class Inicio {
   agregarMascota(mascota: any) {
     this.mascotaService.addMascota(mascota).then(() => {
       this.getMascotas();
+      this.cerrarModal();
     });
   }
 

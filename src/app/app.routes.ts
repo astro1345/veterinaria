@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
+import { Perfilmascota } from './paginas/perfilmascota/perfilmascota';
 
 export const routes: Routes = [
+
+  { path: 'perfilmascota/:id', component: Perfilmascota }, 
 
 {
     path: '',

@@ -22,34 +22,36 @@
       </button>
     </div>
 
-    <!-- Modal para agregar mascota -->
+    <!-- Modal solo para agregar -->
     <div *ngIf="mostrarModal" class="modal-overlay">
-      <app-mascotaform (guardarMascota)="agregarMascota($event)" (cerrarModal)="cerrarModal()">
+      <app-mascotaform 
+        (guardarMascota)="agregarMascota($event)"
+        (cerrarModal)="cerrarModal()">
       </app-mascotaform>
     </div>
 
-    <!-- Listado de mascotas en cards -->
-   <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-  <div *ngFor="let mascota of mascotas" class="col mb-5">
-    <div class="card h-100 mb-4"> <!-- Añadido mb-4 para espacio extra abajo -->
-      <img class="card-img-top" [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="Foto de {{mascota.nombre}}" />
-      <div class="card-body p-4">
-        <div class="text-center">
-          <h5 class="fw-bolder">{{mascota.nombre}}</h5>
-          <p>{{mascota.raza}} - {{mascota.edad}} años</p>
-        </div>
-      </div>
-      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3"> <!-- Añadido pb-3 para más espacio interno -->
-        <div class="text-center d-flex flex-column flex-md-row justify-content-center gap-2">
-          <a class="btn btn-outline-dark" [routerLink]="['/perfilmascota']">Ver Información</a>
-          <button class="btn btn-danger p-2" (click)="eliminarMascota(mascota.idmascota)">
-            <i class="bi bi-trash"></i> <!-- Icono de basura -->
-          </button>
+    <!-- Listado de mascotas -->
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div *ngFor="let mascota of mascotas" class="col mb-5">
+        <div class="card h-100 mb-4">
+          <img class="card-img-top" [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="Foto de {{mascota.nombre}}" />
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder">{{mascota.nombre}}</h5>
+              <p>{{mascota.raza}} - {{mascota.edad}} años</p>
+            </div>
+          </div>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
+            <div class="text-center d-flex flex-column flex-md-row justify-content-center gap-2">
+              <a class="btn btn-outline-dark" [routerLink]="['/perfilmascota', mascota.idmascota]">Ver Información</a>
+              <button class="btn btn-danger p-2" (click)="eliminarMascota(mascota.idmascota)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
   </div>
 </section>
 
