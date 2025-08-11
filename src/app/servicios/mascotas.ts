@@ -27,22 +27,34 @@ export class Mascotas {
     }
   }
 
-  getMascotas() {
-    const mascotaCollection = collection(this.firestore, 'mascotas');
-    return collectionData(mascotaCollection, { idField: 'idmascota' });
-  }
+getMascotas() {
+  const mascotaCollection = collection(this.firestore, 'mascotas');
+  return collectionData(mascotaCollection, { idField: 'idmascota' });
+}
 
   addMascota(mascota: any) {
-    const personaCollection = collection(this.firestore, 'mascotas');
-    return addDoc(personaCollection, mascota);
-  }
+  const mascotaCollection = collection(this.firestore, 'mascotas');
+  // Primero agregamos el documento
+  return addDoc(mascotaCollection, mascota).then((docRef) => {
+    // Luego actualizamos el mismo documento para agregar el idmascota
+    return updateDoc(docRef, {
+      idmascota: docRef.id
+    }).then(() => {
+      return { idmascota: docRef.id, ...mascota };
+    });
+  });
+}
 
   updateMascota(mascota: any) {
-    const mascotaCollection = collection(this.firestore, 'mascotas');
-
-    const mascotaDoc = doc(mascotaCollection, mascota.idmascota);
-    return updateDoc(mascotaDoc, mascota);
+  if (!mascota.idmascota) {
+    return Promise.reject('No se proporcionó idmascota');
   }
+  
+  const mascotaDoc = doc(this.firestore, 'mascotas', mascota.idmascota);
+  // Creamos un objeto sin idmascota para la actualización
+  const { idmascota, ...datosActualizar } = mascota;
+  return updateDoc(mascotaDoc, datosActualizar);
+}
 
   deleteMascota(mascotaId: string) {
     const mascotaCollection = collection(this.firestore, 'mascotas');

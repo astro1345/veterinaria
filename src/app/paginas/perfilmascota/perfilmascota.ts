@@ -39,21 +39,35 @@ export class Perfilmascota implements OnInit {
   }
 
   async cargarMascota(id: string) {
-    try {
-      this.mascota = await this.mascotaService.getMascotaById(id);
-    } catch (error) {
-      console.error('Error cargando mascota:', error);
-    }
+  try {
+    this.mascota = await this.mascotaService.getMascotaById(id);
+    console.log('Mascota cargada:', this.mascota); // Verifica en consola
+  } catch (error) {
+    console.error('Error cargando mascota:', error);
   }
+}
 
   toggleEdicion() {
     this.editando = !this.editando;
   }
 
   guardarMascota(mascotaActualizada: any) {
-    this.mascotaService.updateMascota(mascotaActualizada).then(() => {
+  console.log('Intentando guardar:', mascotaActualizada); // Para depuración
+  
+  if (!mascotaActualizada.idmascota) {
+    alert('Error: No se encontró ID de la mascota');
+    return;
+  }
+
+  this.mascotaService.updateMascota(mascotaActualizada)
+    .then(() => {
+      console.log('Mascota actualizada con éxito');
       this.cargarMascota(mascotaActualizada.idmascota);
       this.editando = false;
+    })
+    .catch(error => {
+      console.error('Error al actualizar:', error);
+      alert('Error al guardar los cambios');
     });
-  }
+}
 }

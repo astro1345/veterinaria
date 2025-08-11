@@ -19,13 +19,13 @@ export class Mascotaform {
 
   constructor(private fb: FormBuilder) {
     this.mascotaForm = this.fb.group({
-      idmascota: [null], // Campo oculto para el ID
-      nombre: ['', Validators.required],
-      edad: ['', [Validators.required, Validators.min(0)]],
-      raza: ['', Validators.required],
-      fechanac: ['', Validators.required],
-      foto: ['']
-    });
+  idmascota: [''], // Asegúrate de incluir este campo
+  nombre: ['', Validators.required],
+  edad: ['', [Validators.required, Validators.min(0)]],
+  raza: ['', Validators.required],
+  fechanac: ['', Validators.required],
+  foto: ['']
+});
   }
 
   ngOnChanges() {
@@ -51,3 +51,5 @@ export class Mascotaform {
     this.cerrarModal.emit();
   }
 }
+
+

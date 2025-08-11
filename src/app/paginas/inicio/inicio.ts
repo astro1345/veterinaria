@@ -32,11 +32,11 @@ export class Inicio {
   }
 
   agregarMascota(mascota: any) {
-    this.mascotaService.addMascota(mascota).then(() => {
-      this.getMascotas();
-      this.cerrarModal();
-    });
-  }
+  this.mascotaService.addMascota(mascota).then((mascotaConId) => {
+    this.getMascotas(); // Esto actualizará la lista con el ID incluido
+    this.cerrarModal();
+  });
+}
 
   eliminarMascota(uuid: string) {
     if (confirm('¿Estás seguro de que quieres eliminar esta mascota?')) {
