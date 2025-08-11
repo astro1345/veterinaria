@@ -1,7 +1,10 @@
 <!-- mascota-form.component.html -->
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title">Agregar Nueva Mascota</h5>
+    <h5 class="modal-title">
+  {{ esEdicion ? 'Modificar Mascota' : 'Agregar Nueva Mascota' }}
+</h5>
+
     <button type="button" class="close" (click)="onCancel()">&times;</button>
   </div>
   <div class="modal-body">
