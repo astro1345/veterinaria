@@ -3,57 +3,52 @@
 
 <body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh; margin: 0;">
 
-  <main style="padding-top: 40px;">
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 col-xl-6">
-          
-          <!-- Vista de detalles (cuando no está editando) -->
-          <div *ngIf="!editando" class="card h-100 shadow">
-            <img class="card-img-top" 
-                 [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'" 
-                 alt="Foto de {{mascota.nombre}}" 
-                 style="height: 400px; object-fit: cover;">
-            
-            <div class="card-body p-4">
-              <div class="text-center">
-                <h2 class="fw-bolder">{{mascota.nombre}}</h2>
-              </div>
-            </div>
-            
-            <div class="card-footer p-4 border-top-0 bg-transparent">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <p><strong>Edad:</strong> {{mascota.edad}} años</p>
-                  <p><strong>Raza:</strong> {{mascota.raza}}</p>
+    <main style="padding-top: 40px;">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+
+                    <!-- Vista de detalles (cuando no está editando) -->
+                    <div *ngIf="!editando" class="card h-100 shadow">
+                        <img class="card-img-top"
+                            [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'"
+                            alt="Foto de {{mascota.nombre}}" style="height: 400px; object-fit: cover;">
+
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h2 class="fw-bolder">{{mascota.nombre}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-footer p-4 border-top-0 bg-transparent">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <p><strong>Edad:</strong> {{mascota.edad}} años</p>
+                                    <p><strong>Raza:</strong> {{mascota.raza}}</p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac | date}}</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-warning" (click)="toggleEdicion()" title="Editar">
+                                    <i class="bi bi-pencil-fill me-1"></i> Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de edición -->
+                    <div *ngIf="editando">
+                        <app-mascotaform [mascota]="mascota" (guardarMascota)="guardarMascota($event)"
+                            (cerrarModal)="toggleEdicion()">
+                        </app-mascotaform>
+                    </div>
+
                 </div>
-                <div class="col-md-6 mb-3">
-                  <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac | date}}</p>
-                </div>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-warning" (click)="toggleEdicion()" title="Editar">
-  <i class="bi bi-pencil-fill me-1"></i> Editar
-</button>
-
-
-              </div>
             </div>
-          </div>
-
-          <!-- Formulario de edición (cuando está editando) -->
-          <div *ngIf="editando">
-            <app-mascotaform 
-              [mascota]="mascota"
-              (guardarMascota)="guardarMascota($event)"
-              (cerrarModal)="toggleEdicion()">
-            </app-mascotaform>
-          </div>
-
         </div>
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <app-footer></app-footer>
+    <app-footer></app-footer>
 </body>
