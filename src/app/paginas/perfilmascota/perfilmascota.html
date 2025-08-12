@@ -99,7 +99,7 @@
                                         <div class="btn-group btn-group-sm">
                                             <div
                                                 class="text-center d-flex flex-column flex-md-row justify-content-center gap-2">
-                                                <button class="btn btn-outline-primary"
+                                                <button class="btn btn-outline-dark"
                                                     (click)="abrirFormularioVacuna(vacuna)">
                                                     <i class="bi bi-pencil-fill me-1"></i> Editar
                                                 </button>
@@ -140,7 +140,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #1eb8b8; color: white;">
-                    <h5 class="modal-title">{{ vacunaForm.value.id ? 'Editar Vacuna' : 'Agregar Vacuna' }}</h5>
+                    <h5 class="modal-title">{{ vacunaForm.value.id ? 'Editar ' : 'Agregar  o tratamiento' }}</h5>
                     <button type="button" class="btn-close" (click)="cerrarModalVacuna()" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -148,9 +148,13 @@
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre </label>
                             <input type="text" id="nombre" formControlName="nombre" class="form-control" />
-
+                            <div class="text-danger"
+                                *ngIf="vacunaForm.get('nombre')?.invalid && vacunaForm.get('nombre')?.touched">
+                                Ingrese el nombre.
+                            </div>
                         </div>
 
+                        <!-- Tipo -->
                         <div class="mb-3">
                             <label for="tipo" class="form-label">Tipo </label>
                             <select id="tipo" formControlName="tipo" class="form-select">
@@ -158,54 +162,71 @@
                                 <option value="Vacuna">Vacuna</option>
                                 <option value="Tratamiento">Tratamiento</option>
                             </select>
-
+                            <div class="text-danger"
+                                *ngIf="vacunaForm.get('tipo')?.invalid && vacunaForm.get('tipo')?.touched">
+                                Seleccione el tipo.
+                            </div>
                         </div>
 
+                        <!-- Fecha -->
                         <div class="mb-3">
                             <label for="fecha" class="form-label">Fecha de aplicación</label>
                             <input type="date" id="fecha" formControlName="fecha" class="form-control" />
-
+                            <div class="text-danger"
+                                *ngIf="vacunaForm.get('fecha')?.invalid && vacunaForm.get('fecha')?.touched">
+                                Ingrese la fecha de aplicación
+                            </div>
                         </div>
-
 
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cantidad" class="form-label">Duración</label>
-                                <select id="cantidad" formControlName="cantidad" class="form-select">
-                                    <option value="">La cantidad de tiempo</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="periodo" class="form-label">Período</label>
-                                <select id="periodo" formControlName="periodo" class="form-select">
-                                    <option value="">Seleccione período</option>
-                                    <option value="mes(es)">Mes(es)</option>
-                                    <option value="año(s)">Año(s)</option>
-                                </select>
-                            </div>
-                        </div>
+  <!-- Cantidad -->
+  <div class="col-md-6 mb-3">
+    <label for="cantidad" class="form-label">Duración</label>
+    <select id="cantidad" formControlName="cantidad" class="form-select">
+      <option value="">La cantidad de tiempo</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    <div class="text-danger mt-1" style="min-height: 1.5em;"
+      *ngIf="vacunaForm.get('cantidad')?.invalid && vacunaForm.get('cantidad')?.touched">
+      Ingrese la Duración
+    </div>
+  </div>
+
+  <!-- Periodo -->
+  <div class="col-md-6 mb-3">
+    <label for="periodo" class="form-label">Período</label>
+    <select id="periodo" formControlName="periodo" class="form-select">
+      <option value="">Seleccione período</option>
+      <option value="mes(es)">Mes(es)</option>
+      <option value="año(s)">Año(s)</option>
+    </select>
+    <div class="text-danger mt-1" style="min-height: 1.5em;"
+      *ngIf="vacunaForm.get('periodo')?.invalid && vacunaForm.get('periodo')?.touched">
+      Ingrese el período.
+    </div>
+  </div>
+</div>
+
                         <div class="mb-3">
                             <label for="notas" class="form-label">Notas</label>
                             <textarea id="notas" formControlName="notas" class="form-control" rows="3"></textarea>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-secondary"
+                            <button type="button" class="btn btn-danger"
                                 (click)="cerrarModalVacuna()">Cancelar</button>
-                            <button type="submit" class="btn btn-primary"
-                                [disabled]="vacunaForm.invalid">Guardar</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
                     </form>
                 </div>

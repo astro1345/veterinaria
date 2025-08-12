@@ -125,28 +125,27 @@ cerrarModalVacuna() {
   document.body.style.overflow = '';
 }
 
-  guardarVacuna() {
-    if (this.vacunaForm.invalid) {
-      alert('Complete los campos obligatorios');
-      return;
-    }
-    const vacunaData = this.vacunaForm.value;
-
-    if (vacunaData.id) {
-      this.vacunaService.updateVacuna(this.mascota.idmascota, vacunaData)
-        .then(() => {
-          this.cerrarModalVacuna();
-        });
-    } else {
-      this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
-        .then(() => {
-
-          this.cerrarModalVacuna();
-        })
-        .catch(err => alert('Error agregando vacuna: ' + err));
-    }
+ guardarVacuna() {
+  if (this.vacunaForm.invalid) {
+    this.vacunaForm.markAllAsTouched();
+    return;
   }
 
+  const vacunaData = this.vacunaForm.value;
+
+  if (vacunaData.id) {
+    this.vacunaService.updateVacuna(this.mascota.idmascota, vacunaData)
+      .then(() => {
+        this.cerrarModalVacuna();
+      });
+  } else {
+    this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
+      .then(() => {
+        this.cerrarModalVacuna();
+      })
+      .catch(err => alert('Error agregando vacuna: ' + err));
+  }
+}
 
 
   borrarVacuna(mascota: any, vacuna: any) {
