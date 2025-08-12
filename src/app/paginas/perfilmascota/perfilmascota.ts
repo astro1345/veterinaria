@@ -146,7 +146,15 @@ cerrarModalVacuna() {
         .catch(err => alert('Error agregando vacuna: ' + err));
     }
   }
+
+
+
   borrarVacuna(mascota: any, vacuna: any) {
-    this.vacunaService.deleteVacuna(mascota.idmascota, vacuna.id);
+
+
+        if (confirm('¿Estás seguro de que quieres eliminar esta vacuna?')) {
+      this.vacunaService.deleteVacuna(mascota.idmascota, vacuna.id);
+    }
+   
   }
 }
