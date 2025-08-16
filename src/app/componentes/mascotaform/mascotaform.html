@@ -2,8 +2,12 @@
 <div class="modal-content">
   <div class="modal-header">
     <h5 class="modal-title">
-  {{ esEdicion ? 'Modificar Mascota' : 'Agregar Nueva Mascota' }}
-</h5>
+      @if (esEdicion) {
+        Modificar Mascota
+      } @else {
+        Agregar Nueva Mascota
+      }
+    </h5>
 
     <button type="button" class="close" (click)="onCancel()">&times;</button>
   </div>
@@ -12,33 +16,41 @@
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" id="nombre" formControlName="nombre">
-        <div *ngIf="mascotaForm.get('nombre')?.invalid && mascotaForm.get('nombre')?.touched" class="text-danger">
-          Nombre es requerido
-        </div>
+        @if (mascotaForm.get('nombre')?.invalid && mascotaForm.get('nombre')?.touched) {
+          <div class="text-danger">
+            Nombre es requerido
+          </div>
+        }
       </div>
       
       <div class="form-group">
         <label for="edad">Edad</label>
         <input type="number" class="form-control" id="edad" formControlName="edad">
-        <div *ngIf="mascotaForm.get('edad')?.invalid && mascotaForm.get('edad')?.touched" class="text-danger">
-          Edad es requerida y debe ser mayor o igual a 0
-        </div>
+        @if (mascotaForm.get('edad')?.invalid && mascotaForm.get('edad')?.touched) {
+          <div class="text-danger">
+            Edad es requerida y debe ser mayor o igual a 0
+          </div>
+        }
       </div>
       
       <div class="form-group">
         <label for="raza">Raza</label>
         <input type="text" class="form-control" id="raza" formControlName="raza">
-        <div *ngIf="mascotaForm.get('raza')?.invalid && mascotaForm.get('raza')?.touched" class="text-danger">
-          Raza es requerida
-        </div>
+        @if (mascotaForm.get('raza')?.invalid && mascotaForm.get('raza')?.touched) {
+          <div class="text-danger">
+            Raza es requerida
+          </div>
+        }
       </div>
       
       <div class="form-group">
         <label for="fechanac">Fecha de Nacimiento</label>
         <input type="date" class="form-control" id="fechanac" formControlName="fechanac">
-        <div *ngIf="mascotaForm.get('fechanac')?.invalid && mascotaForm.get('fechanac')?.touched" class="text-danger">
-          Fecha de nacimiento es requerida
-        </div>
+        @if (mascotaForm.get('fechanac')?.invalid && mascotaForm.get('fechanac')?.touched) {
+          <div class="text-danger">
+            Fecha de nacimiento es requerida
+          </div>
+        }
       </div>
       
       <div class="modal-footer">

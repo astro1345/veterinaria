@@ -5,49 +5,51 @@
 
     <main style="padding-top: 40px;">
         <div class="container py-5">
-            <div class="row align-items-start"> <!-- Cambiado a align-items-start -->
+            <div class="row align-items-start"> 
 
                 <!-- Columna izquierda: Perfil Mascota -->
                 <div class="col-md-6 position-relative" style="height: fit-content;">
                     <!-- Añadido position-relative y height -->
                     <!-- Vista de detalles -->
-                    <div *ngIf="!editando" class="card shadow" style="position: sticky; top: 20px;">
-                        <!-- Añadido sticky -->
-                        <img class="card-img-top"
-                            [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'"
-                            alt="Foto de {{mascota.nombre}}" style="height: 400px; object-fit: cover;">
+                    @if (!editando) {
+                        <div class="card shadow" style="position: sticky; top: 20px;">
+                            <!-- Añadido sticky -->
+                            <img class="card-img-top"
+                                [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'"
+                                alt="Foto de {{mascota.nombre}}" style="height: 400px; object-fit: cover;">
 
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h2 class="fw-bolder">{{mascota.nombre}}</h2>
-                            </div>
-                        </div>
-
-                        <div class="card-footer p-4 border-top-0 bg-transparent">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <p><strong>Edad:</strong> {{mascota.edad}} años</p>
-                                    <p><strong>Raza:</strong> {{mascota.raza}}</p>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac | date}}</p>
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h2 class="fw-bolder">{{mascota.nombre}}</h2>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <button class="btn " style="background-color: #1eb8b8; color: white;"
-                                    (click)="toggleEdicion()" title="Editar">
-                                    <i class="bi bi-pencil-fill me-1"></i> Editar
-                                </button>
+
+                            <div class="card-footer p-4 border-top-0 bg-transparent">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <p><strong>Edad:</strong> {{mascota.edad}} años</p>
+                                        <p><strong>Raza:</strong> {{mascota.raza}}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac | date}}</p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn " style="background-color: #1eb8b8; color: white;"
+                                        (click)="toggleEdicion()" title="Editar">
+                                        <i class="bi bi-pencil-fill me-1"></i> Editar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
 
                     <!-- Formulario de edición -->
-                    <div *ngIf="editando">
+                    @if (editando) {
                         <app-mascotaform [mascota]="mascota" (guardarMascota)="guardarMascota($event)"
                             (cerrarModal)="toggleEdicion()">
                         </app-mascotaform>
-                    </div>
+                    }
                 </div>
 
                 <!-- Columna derecha: Vacunas -->
@@ -64,63 +66,64 @@
                             </div>
                         </div>
 
+
                         <div class="card-body p-0">
 
                             <div class="list-group list-group-flush">
-                                @for (vacuna of vacunas; track $index) {
-                                <div class="list-group-item p-3 vacuna-item">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="badge me-2"
-                                                    [style.backgroundColor]="vacuna.tipo === 'Vacuna' ? '#1eb8b8' : '#28a745'">
-                                                    {{vacuna.tipo}}
-                                                </span>
-                                                <h6 class="mb-0 fw-bold">{{vacuna.nombre}}</h6>
-                                            </div>
-
-                                            <div class="d-flex flex-wrap vacuna-fecha">
-                                                <div class="me-3">
-                                                    <i class="bi bi-calendar-event me-1"></i>
-                                                    {{vacuna.fecha | date:'mediumDate'}}
+                                @for (vacuna of vacunas; track vacuna.id) {
+                                    <div class="list-group-item p-3 vacuna-item">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <span class="badge me-2"
+                                                        [style.backgroundColor]="vacuna.tipo === 'Vacuna' ? '#1eb8b8' : '#28a745'">
+                                                        {{vacuna.tipo}}
+                                                    </span>
+                                                    <h6 class="mb-0 fw-bold">{{vacuna.nombre}}</h6>
                                                 </div>
-                                                <div>
-                                                    <i class="bi bi-clock-history me-1"></i>
-                                                    Validez: {{vacuna.cantidad}} {{vacuna.periodo}}
+
+                                                <div class="d-flex flex-wrap vacuna-fecha">
+                                                    <div class="me-3">
+                                                        <i class="bi bi-calendar-event me-1"></i>
+                                                        {{vacuna.fecha | date:'mediumDate'}}
+                                                    </div>
+                                                    <div>
+                                                        <i class="bi bi-clock-history me-1"></i>
+                                                        Validez: {{vacuna.cantidad}} {{vacuna.periodo}}
+                                                    </div>
                                                 </div>
+
+                                                @if (vacuna.notas) {
+                                                    <div class="mt-2 vacuna-notas">
+                                                        <i class="bi bi-journal-text me-1"></i>
+                                                        {{vacuna.notas}}
+                                                    </div>
+                                                }
                                             </div>
 
-                                            <div *ngIf="vacuna.notas" class="mt-2 vacuna-notas">
-                                                <i class="bi bi-journal-text me-1"></i>
-                                                {{vacuna.notas}}
-                                            </div>
-                                        </div>
+                                            <div class="btn-group btn-group-sm">
+                                                <div class="text-center d-flex flex-column flex-md-row justify-content-center gap-2">
+                                                    <button class="btn btn-outline-dark"
+                                                        (click)="abrirFormularioVacuna(vacuna)">
+                                                        <i class="bi bi-pencil-fill me-1"></i> Editar
+                                                    </button>
 
-                                        <div class="btn-group btn-group-sm">
-                                            <div
-                                                class="text-center d-flex flex-column flex-md-row justify-content-center gap-2">
-                                                <button class="btn btn-outline-dark"
-                                                    (click)="abrirFormularioVacuna(vacuna)">
-                                                    <i class="bi bi-pencil-fill me-1"></i> Editar
-                                                </button>
-
-                                                <button class="btn btn-outline-danger"
-                                                    (click)="borrarVacuna(mascota, vacuna)"> <i
-                                                        class="bi bi-trash"></i></button>
+                                                    <button class="btn btn-outline-danger"
+                                                        (click)="borrarVacuna(mascota, vacuna)">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                }
-
-                                @empty {
-                                <div class="text-center py-4 text-muted">
-                                    <i class="bi bi-exclamation-circle fs-4"></i>
-                                    <p class="mb-0">No hay registro</p>
-                                    <button class="btn btn-link p-0" (click)="abrirFormularioVacuna()">
-                                        Agregar nuevo tratamiento o vacuna
-                                    </button>
-                                </div>
+                                } @empty {
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-exclamation-circle fs-4"></i>
+                                        <p class="mb-0">No hay registro</p>
+                                        <button class="btn btn-link p-0" (click)="abrirFormularioVacuna()">
+                                            Agregar nuevo tratamiento o vacuna
+                                        </button>
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -131,108 +134,117 @@
         </div>
 
     </main>
+
     <!-- Overlay para el fondo oscuro -->
-    <div class="modal-backdrop fade show" *ngIf="mostrarModalVacuna"></div>
+    @if (mostrarModalVacuna) {
+        <div class="modal-backdrop fade show"></div>
+    }
 
     <!-- Modal -->
-    <div class="modal fade show" tabindex="-1" [ngStyle]="{'display': mostrarModalVacuna ? 'block' : 'none'}"
-        role="dialog" aria-modal="true" *ngIf="mostrarModalVacuna">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #1eb8b8; color: white;">
-                    <h5 class="modal-title">{{ vacunaForm.value.id ? 'Editar ' : 'Agregar  o tratamiento' }}</h5>
-                    <button type="button" class="btn-close" (click)="cerrarModalVacuna()" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form [formGroup]="vacunaForm" (ngSubmit)="guardarVacuna()">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre </label>
-                            <input type="text" id="nombre" formControlName="nombre" class="form-control" />
-                            <div class="text-danger"
-                                *ngIf="vacunaForm.get('nombre')?.invalid && vacunaForm.get('nombre')?.touched">
-                                Ingrese el nombre.
+    @if (mostrarModalVacuna) {
+        <div class="modal fade show" tabindex="-1" [ngStyle]="{'display': 'block'}"
+            role="dialog" aria-modal="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #1eb8b8; color: white;">
+                        <h5 class="modal-title">{{ vacunaForm.value.id ? 'Editar ' : 'Agregar ' }} vacuna o tratamiento</h5>
+                        <button type="button" class="btn-close" (click)="cerrarModalVacuna()" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="vacunaForm" (ngSubmit)="guardarVacuna()">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre </label>
+                                <input type="text" id="nombre" formControlName="nombre" class="form-control" />
+                                @if (vacunaForm.get('nombre')?.invalid && vacunaForm.get('nombre')?.touched) {
+                                    <div class="text-danger">
+                                        Ingrese el nombre.
+                                    </div>
+                                }
                             </div>
-                        </div>
 
-                        <!-- Tipo -->
-                        <div class="mb-3">
-                            <label for="tipo" class="form-label">Tipo </label>
-                            <select id="tipo" formControlName="tipo" class="form-select">
-                                <option value="">Seleccione</option>
-                                <option value="Vacuna">Vacuna</option>
-                                <option value="Tratamiento">Tratamiento</option>
-                            </select>
-                            <div class="text-danger"
-                                *ngIf="vacunaForm.get('tipo')?.invalid && vacunaForm.get('tipo')?.touched">
-                                Seleccione el tipo.
+                            <!-- Tipo -->
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo </label>
+                                <select id="tipo" formControlName="tipo" class="form-select">
+                                    <option value="">Seleccione</option>
+                                    <option value="Vacuna">Vacuna</option>
+                                    <option value="Tratamiento">Tratamiento</option>
+                                </select>
+                                @if (vacunaForm.get('tipo')?.invalid && vacunaForm.get('tipo')?.touched) {
+                                    <div class="text-danger">
+                                        Seleccione el tipo.
+                                    </div>
+                                }
                             </div>
-                        </div>
 
-                        <!-- Fecha -->
-                        <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha de aplicación</label>
-                            <input type="date" id="fecha" formControlName="fecha" class="form-control" />
-                            <div class="text-danger"
-                                *ngIf="vacunaForm.get('fecha')?.invalid && vacunaForm.get('fecha')?.touched">
-                                Ingrese la fecha de aplicación
+                            <!-- Fecha -->
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha de aplicación</label>
+                                <input type="date" id="fecha" formControlName="fecha" class="form-control" />
+                                @if (vacunaForm.get('fecha')?.invalid && vacunaForm.get('fecha')?.touched) {
+                                    <div class="text-danger">
+                                        Ingrese la fecha de aplicación
+                                    </div>
+                                }
                             </div>
-                        </div>
 
-                        <div class="row">
-  <!-- Cantidad -->
-  <div class="col-md-6 mb-3">
-    <label for="cantidad" class="form-label">Duración</label>
-    <select id="cantidad" formControlName="cantidad" class="form-select">
-      <option value="">La cantidad de tiempo</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-    </select>
-    <div class="text-danger mt-1" style="min-height: 1.5em;"
-      *ngIf="vacunaForm.get('cantidad')?.invalid && vacunaForm.get('cantidad')?.touched">
-      Ingrese la Duración
-    </div>
-  </div>
+                            <div class="row">
+                                <!-- Cantidad -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="cantidad" class="form-label">Duración</label>
+                                    <select id="cantidad" formControlName="cantidad" class="form-select">
+                                        <option value="">La cantidad de tiempo</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                    @if (vacunaForm.get('cantidad')?.invalid && vacunaForm.get('cantidad')?.touched) {
+                                        <div class="text-danger mt-1" style="min-height: 1.5em;">
+                                            Ingrese la Duración
+                                        </div>
+                                    }
+                                </div>
 
-  <!-- Periodo -->
-  <div class="col-md-6 mb-3">
-    <label for="periodo" class="form-label">Período</label>
-    <select id="periodo" formControlName="periodo" class="form-select">
-      <option value="">Seleccione período</option>
-      <option value="mes(es)">Mes(es)</option>
-      <option value="año(s)">Año(s)</option>
-    </select>
-    <div class="text-danger mt-1" style="min-height: 1.5em;"
-      *ngIf="vacunaForm.get('periodo')?.invalid && vacunaForm.get('periodo')?.touched">
-      Ingrese el período.
-    </div>
-  </div>
-</div>
+                                <!-- Periodo -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="periodo" class="form-label">Período</label>
+                                    <select id="periodo" formControlName="periodo" class="form-select">
+                                        <option value="">Seleccione período</option>
+                                        <option value="mes(es)">Mes(es)</option>
+                                        <option value="año(s)">Año(s)</option>
+                                    </select>
+                                    @if (vacunaForm.get('periodo')?.invalid && vacunaForm.get('periodo')?.touched) {
+                                        <div class="text-danger mt-1" style="min-height: 1.5em;">
+                                            Ingrese el período.
+                                        </div>
+                                    }
+                                </div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="notas" class="form-label">Notas</label>
-                            <textarea id="notas" formControlName="notas" class="form-control" rows="3"></textarea>
-                        </div>
+                            <div class="mb-3">
+                                <label for="notas" class="form-label">Notas</label>
+                                <textarea id="notas" formControlName="notas" class="form-control" rows="3"></textarea>
+                            </div>
 
-                        <div class="d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-danger"
-                                (click)="cerrarModalVacuna()">Cancelar</button>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                        </div>
-                    </form>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" class="btn btn-danger"
+                                    (click)="cerrarModalVacuna()">Cancelar</button>
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
-    </div>
+    }
     <app-footer></app-footer>
 </body>
