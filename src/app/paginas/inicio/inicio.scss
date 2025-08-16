@@ -1,4 +1,6 @@
-/* inicio.scss */
+/* --- BASE (Mobile First ≤480px) --- */
+
+/* Overlay modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,6 +14,7 @@
   z-index: 1000;
 }
 
+/* Botón Agregar */
 .btn-agregar {
   background-color: #1eb8b8;
   color: white;
@@ -21,14 +24,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center; /* centrado en móvil */
   gap: 8px;
   font-size: 16px;
+  width: 100%; /* ocupa todo el ancho en móvil */
 }
 
 .btn-agregar:hover {
-  background-color: #1eb8b8;
+  background-color: #17a2a2;
 }
 
+/* Card */
 .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -38,8 +44,91 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Card Notificaciones */
+.card-notificaciones {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 1.5rem auto; /* centrada en móviles */
+}
+
+/* Huella decorativa */
 .huella-decorativa {
   position: absolute;
   opacity: 0.1;
-  font-size: 3rem;
+  font-size: 2rem; /* más pequeña en móvil */
+  top: 10%;
+  left: 10%;
+}
+/* Contenedor de botones dentro de la card */
+.card-footer .btn-group {
+  display: flex;
+  flex-direction: column; /* columna en móvil */
+  gap: 0.5rem;
+  width: 100%;
+  align-items: center;
+}
+
+/* Botones */
+.card-footer .btn {
+  width: 100%; /* ocupa todo el ancho en móvil */
+  white-space: normal; /* permite que el texto haga wrap */
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+
+/* --- Teléfonos grandes (≥480px) --- */
+@media (min-width: 480px) {
+  .btn-agregar {
+    width: auto;
+    align-self: flex-end;
+  }
+
+  .card-notificaciones {
+    max-width: 28rem;
+  }
+  .card-footer .btn-group {
+    flex-direction: row; /* fila en pantallas grandes */
+    justify-content: center;
+    width: auto;
+  }
+  .huella-decorativa {
+    font-size: 2.5rem;
+    top: 15%;
+    left: 8%;
+  }
+  
+}
+
+/* --- Tablets (≥768px) --- */
+@media (min-width: 768px) {
+  .card-notificaciones {
+    max-width: 30rem;
+    margin-left: 2rem;
+  }
+
+  .huella-decorativa {
+    font-size: 3rem;
+    top: 20%;
+    left: 6%;
+  }
+    .card-footer .btn {
+    width: auto; /* ancho automático */
+    white-space: nowrap; /* texto en una línea */
+  }
+}
+
+/* --- Escritorio (≥1024px) --- */
+@media (min-width: 1024px) {
+   .card-notificaciones {
+    margin-left: 192px; /* vuelve al diseño original */
+    margin-top: 50px;
+  }
+
+  .huella-decorativa {
+    font-size: 3.5rem;
+    top: 20%;
+    left: 5%;
+    transform: rotate(30deg);
+  }
 }

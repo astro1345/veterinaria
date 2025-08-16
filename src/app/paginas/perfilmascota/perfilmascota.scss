@@ -1,68 +1,108 @@
-/* Efecto hover para items */
-.hover-effect:hover {
-    background-color: #f8f9fa;
-    transition: background-color 0.2s ease;
+/* --- BASE (≤480px) --- */
+
+/* Contenedor principal */
+main .container {
+  padding: 0 15px;
 }
 
-/* Mejora para los badges */
-.badge {
-    font-size: 0.75em;
-    letter-spacing: 0.5px;
+/* Cards generales */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
-/* Ajuste para los botones de acción */
-.btn-group-sm .btn {
-    padding: 0.25rem 0.5rem;
+/* Imagen de mascota */
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
-/* Estilos para la lista de vacunas */
+
+/* Sticky profile card en escritorio se quita en móvil */
+.col-md-6.position-relative .card {
+  position: relative !important;
+  top: 0 !important;
+}
+
+/* Titulos centrados */
+h2.fw-bolder {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Botón editar */
+.card-footer .btn {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  background-color: #1eb8b8;
+  color: white;
+  border: none;
+}
+
+.card-footer .btn:hover {
+  background-color: #17a2a2;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Lista de vacunas */
+.list-group {
+  padding: 0;
+}
+
 .vacuna-item {
-    border-radius: 12px;
-    margin-bottom: 15px; /* Separación entre elementos */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
+.vacuna-item .d-flex {
+  flex-wrap: wrap;      
+  justify-content: center; 
+  gap: 8px;           
+}
 .vacuna-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.vacuna-tipo {
-    font-size: 0.85rem;
-    padding: 6px 10px;
-    border-radius: 8px;
-}
-
-.vacuna-fecha {
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
+/* Fechas y notas */
+.vacuna-fecha,
 .vacuna-notas {
-    font-style: italic;
-    color: #495057;
+  font-size: 0.9rem;
+  color: #495057;
 }
 
-/* Botones más compactos */
-.vacuna-item .btn {
-    border-radius: 8px;
+/* Botones de acción */
+.btn-group-sm .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
 }
+
+/* Botón agregar */
 .btn-agregar {
   background-color: #1eb8b8;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
+  gap: 6px;
+  font-size: 0.9rem;
 }
+
 .btn-agregar:hover {
   background-color: #17a2a2;
   transition: background-color 0.3s ease;
 }
-/* Estilos para el fondo oscuro del modal */
+
+/* Modal */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -70,17 +110,136 @@
   z-index: 1040;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.5);
 }
 
-/* Asegurar que el modal esté por encima del backdrop */
 .modal {
   z-index: 1050;
 }
 
-/* Opcional: mejorar la apariencia del modal */
 .modal-content {
   border: none;
   border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  max-width: 95%;
+  margin: 1rem;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.row.align-items-start {
+  display: flex;
+  flex-direction: column; 
+  gap: 20px; 
+}
+
+
+.col-md-6:not(.position-relative) .card {
+  padding: 15px;
+}
+
+
+.card-header .d-flex {
+  flex-direction: column;
+  gap: 10px;
+}
+.modal.fade.show {
+  display: flex !important;       
+  justify-content: center;         
+  align-items: center;             
+  min-height: 100vh;              
+  padding: 1rem;
+}
+
+/* Modal interno */
+.modal-dialog {
+  max-width: 500px; 
+  width: 100%;
+  margin: 0;        
+}
+/* --- Teléfonos grandes ≥480px --- */
+@media (min-width: 480px) {
+  h2.fw-bolder {
+    font-size: 1.75rem;
+  }
+  .btn-agregar {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+/* --- Tablets ≥768px --- */
+@media (min-width: 768px) {
+.row.align-items-start {
+    flex-direction: row;
+  }
+
+
+  .col-md-6 {
+    width: 48%;
+  }
+
+  /* Sticky en tablet/desktop */
+  .col-md-6.position-relative .card {
+    position: sticky;
+    top: 20px;
+  }
+
+  h2.fw-bolder {
+    font-size: 2rem;
+  }
+
+  .vacuna-item {
+    font-size: 0.95rem;
+  } 
+    .vacuna-item .d-flex {
+    flex-wrap: nowrap;
+    justify-content: flex-start; 
+  }
+  .row.align-items-start {
+    flex-direction: row; 
+    align-items: flex-start;
+  }
+
+
+
+  .col-md-6.position-relative,
+  .col-md-6:not(.position-relative) {
+    width: 48%;
+  }
+
+ 
+  .card-header .d-flex {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+}
+
+/* --- Escritorio ≥1024px --- */
+@media (min-width: 1024px) {
+  .col-md-6.position-relative {
+    width: 50%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  h2.fw-bolder {
+    font-size: 2.2rem;
+  }
+
+  .btn-agregar {
+    font-size: 1.05rem;
+    padding: 12px 25px;
+  }
+  .row.align-items-start {
+    flex-direction: row;
+  }
+
+  .col-md-6.position-relative {
+    width: 48%;
+  }
+
+  .col-md-6:not(.position-relative) {
+    width: 48%;
+  }
+
 }

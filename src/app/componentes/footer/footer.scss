@@ -1,10 +1,28 @@
-/* footer.component.css */
 .bg-aqua {
     background-color: #1eb8b8 !important;
+    position: relative;
+    overflow: hidden; 
+    min-height: 120px; 
 }
+
 
 .footer-huellas {
     position: absolute;
-    font-size: 1.5rem;
-    color: black;
+    font-size: 2rem; 
+    color: rgba(0, 0, 0, 0.3); 
+    user-select: none; 
+    pointer-events: none; 
+    transition: transform 0.3s ease;
+}
+
+
+.footer-huellas:hover {
+    transform: scale(1.2) rotate(15deg);
+}
+
+
+@media (max-width: 768px) {
+    .footer-huellas {
+        font-size: 1.2rem;
+    }
 }

@@ -1,0 +1,116 @@
+
+/* Contenedor principal */
+main .container {
+  padding: 0 15px; 
+}
+
+/* Card */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 2rem auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Body */
+.card-body {
+  padding: 20px;
+}
+
+/* Títulos */
+.card-body h3,
+.card-body h5 {
+  color: #1eb8b8;
+  font-weight: 600;
+}
+
+/* Formulario */
+form .form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 2px solid #1eb8b8;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+form .form-control:focus {
+  border-color: #17a2a2;
+  box-shadow: 0 0 8px rgba(30, 184, 184, 0.4);
+  background-color: #fff;
+}
+
+/* Switch veterinario */
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-weight: 500;
+}
+
+/* Botón guardar */
+form .btn-success {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  background-color: #1eb8b8;
+  border: none;
+}
+
+form .btn-success:hover {
+  background-color: #17a2a2;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Separadores internos */
+.mt-4 hr {
+  border-top: 2px solid #1eb8b8;
+}
+
+/* --- Teléfonos grandes (≥480px) --- */
+@media (min-width: 480px) {
+  form .btn-success {
+    width: auto;
+    align-self: flex-end;
+    padding: 10px 20px;
+  }
+}
+
+/* --- Tablets (≥768px) --- */
+@media (min-width: 768px) {
+  .col-md-8 {
+    max-width: 600px;
+  }
+
+  .card-body {
+    padding: 30px;
+  }
+
+  form .form-control {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+}
+
+/* --- Escritorio (≥1024px) --- */
+@media (min-width: 1024px) {
+  .col-md-8 {
+    max-width: 700px;
+  }
+
+  .card-body {
+    padding: 40px;
+  }
+
+  form .btn-success {
+    font-size: 1.05rem;
+    padding: 12px 25px;
+  }
+}
