@@ -22,15 +22,13 @@
   }
 }
 
-/* Íconos decorativos */
+
 .navbar-huellas {
-  position: absolute;
-  bottom: 20%;
-  right: 5%;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: black;
-  z-index: 0;
+  display: none; 
 }
+
 
 /* Iconos Bootstrap */
 .bi {
@@ -49,12 +47,11 @@
   }
 }
 
-/* Texto blanco solo en la barra principal */
+
 .navbar .nav-link {
   color: white !important;
 }
 
-/* Dropdown: texto negro con fondo blanco */
 .navbar .dropdown-menu {
   background-color: white;
 }
@@ -66,3 +63,124 @@
 .navbar .dropdown-item:hover {
   background-color: #f0f0f0;
 }
+/* --- BASE (Mobile First ≤480px) --- */
+.bg-aqua {
+  background-color: #1eb8b8 !important;
+}
+
+.custom-navbar {
+  position: relative;
+  z-index: 1000;
+}
+
+.custom-navbar::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #1eb8b8;
+  border-bottom-left-radius: 100% 100%;
+  border-bottom-right-radius: 100% 100%;
+  z-index: -1;
+}
+
+
+/* Iconos */
+.bi {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+/* Botón cerrar sesión */
+.btn-logout {
+  color: white !important;
+  border: 1px solid white !important;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Texto navbar */
+.navbar .nav-link {
+  color: white !important;
+  display: block;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+/* Dropdown */
+.navbar .dropdown-menu {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.navbar .dropdown-item {
+  color: black !important;
+}
+
+.navbar .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+/* Teléfonos grandes (≥480px) */
+@media (min-width: 480px) {
+  .btn-logout {
+    font-size: 1rem;
+    padding: 6px 14px;
+  }
+
+   .navbar-huellas {
+    display: inline-block;
+    font-size: 1.3rem;
+  }
+}
+
+/* Tablets (≥768px) */
+@media (min-width: 768px) {
+  .navbar .nav-link {
+    text-align: left;
+    padding: 10px 16px;
+  }
+
+  .navbar-huellas {
+    font-size: 1.5rem;
+  }
+
+  .custom-navbar::after {
+    height: 100px;
+    bottom: -50px;
+  }
+}
+
+/* Escritorio (≥1024px) */
+@media (min-width: 1024px) {
+  .navbar .nav-link {
+    font-size: 1.05rem;
+  }
+
+  .btn-logout {
+    font-size: 1rem;
+    padding: 8px 18px;
+  }
+
+  .navbar-huellas {
+    font-size: 1.7rem;
+    margin-left: 8px; /* espacio entre el botón y las huellas */
+  }
+
+  .custom-navbar::after {
+    height: 120px;
+    bottom: -60px;
+  }
+}
+
+
+
