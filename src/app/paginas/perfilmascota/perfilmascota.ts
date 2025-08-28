@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Mascotas } from '../../servicios/mascotas';
 import { Mascotaform } from "../../componentes/mascotaform/mascotaform";
-import { CommonModule, DatePipe, NgIf } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Navbar } from '../../componentes/navbar/navbar';
 import { Footer } from '../../componentes/footer/footer';
 import { VacunaService } from '../../servicios/vacuna'; 
@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     DatePipe,
     ReactiveFormsModule,
     
-    NgIf
+    
   ],
   templateUrl: './perfilmascota.html',
   styleUrl: './perfilmascota.scss'

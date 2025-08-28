@@ -9,7 +9,7 @@ import { Mascotaform } from '../../componentes/mascotaform/mascotaform';
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [Navbar, Footer, RouterLink, RouterOutlet, JsonPipe, CommonModule, Mascotaform],
+  imports: [Navbar, Footer, RouterLink, CommonModule, Mascotaform],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss'
 })

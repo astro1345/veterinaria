@@ -24,7 +24,6 @@ export class Autenticacion {
   auth = inject(Auth);
   authState = authState(this.auth);
   loggeado = false;
-  currentUser: any = null;
   firestore = inject(Firestore);
 
   constructor() {
@@ -32,7 +31,6 @@ export class Autenticacion {
       console.log('Usuario actual:', user);
       if (user) {
         this.loggeado = true;
-        this.currentUser = await this.getUser(user.uid);
       } else {
         this.loggeado = false;
       }
@@ -44,12 +42,6 @@ export class Autenticacion {
     return setDoc(userDocRef, user);
   }
 
-  getUser(uuid: string) {
-    const userCollection = collection(this.firestore, 'users');
-    const document = doc(userCollection, uuid);
-    return lastValueFrom(docData(document));
-  }
-
   registrarUsuario(email: string, password: string, nombre: string, tipo: string) {
     return createUserWithEmailAndPassword(this.auth, email, password).then(
       async (credencial) => {
@@ -59,7 +51,7 @@ export class Autenticacion {
         }
 
         this.addUser(
-          {
+          { uid: credencial.user.uid,
             email: credencial.user.email,
             nombre: nombre,
             tipo: tipo,
@@ -88,5 +80,5 @@ export class Autenticacion {
     );
   }
 
-  enviarCorreoVerificacion() {}
+ 
 }

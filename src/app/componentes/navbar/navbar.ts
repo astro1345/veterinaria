@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Mascotas } from '../../servicios/mascotas';
 import { Session } from '../../servicios/session';
 import { Autenticacion } from '../../servicios/autenticacion';
+import { Users } from '../../servicios/users';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,9 @@ import { Autenticacion } from '../../servicios/autenticacion';
 })
 export class Navbar {
   sesionService = inject(Session);
+  userservice = inject(Users);
   uid: string | null = this.sesionService.getUid();
+  tipo: String | null = "";
   mascotaService = inject(Mascotas);
   authService = inject(Autenticacion);
   mascotas: any[] = [];
@@ -23,17 +26,29 @@ export class Navbar {
     this.verificarsession();
     this.getMascotas();
   }
- verificarsession() {
-    this.uid = this.sesionService.getUid();
+  verificarsession() {
+
     if (!this.uid) {
       alert('INICIA SESION PARA CONTINUAR');
       this.router.navigate(['']);
+    } else {
+      this.userservice.gettipoUsuario(this.uid).then(tipo => {
+        this.tipo = tipo;
+
+      }).catch(error => {
+
+      });
     }
   }
   getMascotas() {
     this.mascotaService.getMascotas().subscribe((data: any) => {
       this.mascotas = data;
     });
+  }
+  verificarTipo() {
+
+
+
   }
 
   cerrarSesion() {
