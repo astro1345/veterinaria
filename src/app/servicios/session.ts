@@ -8,19 +8,19 @@ export class Session {
 constructor() {}
 
 
-  setUid(uid: string) {
-    sessionStorage.setItem('uid', uid);
+   setUid(uid: string) {
+    localStorage.setItem('uid', uid);
   }
 
   getUid(): string | null {
-    return sessionStorage.getItem('uid');
+    return localStorage.getItem('uid');
   }
 
   clearUid() {
-    sessionStorage.removeItem('uid');
+    localStorage.removeItem('uid');
   }
 
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('uid');
+    return !!localStorage.getItem('uid');
   }
 }

@@ -8,6 +8,7 @@ import { Footer } from '../../componentes/footer/footer';
 import { VacunaService } from '../../servicios/vacuna'; 
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Qrmodal } from "../../componentes/qrmodal/qrmodal";
 @Component({
   selector: 'app-perfilmascota',
   standalone: true,
@@ -18,9 +19,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     Mascotaform,
     DatePipe,
     ReactiveFormsModule,
-    
-    
-  ],
+    Qrmodal
+],
   templateUrl: './perfilmascota.html',
   styleUrl: './perfilmascota.scss'
 })
@@ -31,6 +31,7 @@ export class Perfilmascota implements OnInit {
   mostrarModalVacuna = false;
   editando: boolean = false;
   mostrarModal: boolean = false;
+  linkMascotaqr: string = 'https://veterinariahn.com/mascota/1232222';
 
 
   constructor(

@@ -5,6 +5,8 @@
 
     <main style="padding-top: 40px;">
         <div class="container py-5">
+           <app-qrmodal  [nombre]="mascota.nombre"  [idMascota]="mascota.idmascota"></app-qrmodal>
+<br>
             <div class="row align-items-start"> 
 
                 <!-- Columna izquierda: Perfil Mascota -->
@@ -27,7 +29,7 @@
                             <div class="card-footer p-4 border-top-0 bg-transparent">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <p><strong>Edad:</strong> {{mascota.edad}} años</p>
+                                        <p><strong>Edad:</strong> {{mascota.edad}}</p>
                                         <p><strong>Raza:</strong> {{mascota.raza}}</p>
                                     </div>
                                     <div class="col-md-6 mb-3">

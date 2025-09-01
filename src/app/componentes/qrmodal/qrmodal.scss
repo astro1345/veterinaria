@@ -1,0 +1,17 @@
+.btn-primary {
+
+  background-color: #17a21e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centrado en móvil */
+  gap: 8px;
+  font-size: 16px;
+}
+.btn-primary:hover {
+  background-color: #16911c;
+}

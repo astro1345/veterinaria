@@ -23,15 +23,7 @@
         }
       </div>
       
-      <div class="form-group">
-        <label for="edad">Edad</label>
-        <input type="number" class="form-control" id="edad" formControlName="edad">
-        @if (mascotaForm.get('edad')?.invalid && mascotaForm.get('edad')?.touched) {
-          <div class="text-danger">
-            Edad es requerida y debe ser mayor o igual a 0
-          </div>
-        }
-      </div>
+
       
       <div class="form-group">
         <label for="raza">Raza</label>
@@ -51,6 +43,11 @@
             Fecha de nacimiento es requerida
           </div>
         }
+      </div>
+         <div class="form-group">
+        <label for="foto">URL Foto</label>
+        <input type="text" class="form-control" id="foto" formControlName="foto">
+    
       </div>
       
       <div class="modal-footer">

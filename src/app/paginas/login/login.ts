@@ -38,7 +38,7 @@ export class Login {
       .then(credencial => {
         if (credencial.user) {
           const uid = credencial.user.uid;
-                  sessionStorage.setItem('uid', uid);
+                  localStorage.setItem('uid', uid);
             this.router.navigate(['/inicio']);
         }
       })
