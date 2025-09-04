@@ -20,36 +20,38 @@
   </div>
 </div>
 
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">Sasha</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" routerLink="/perfilmascota">Ver
-                                Informacion</a></div>
-                    </div>
+       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          @for (mascota of mascotas; track mascota.idmascota) {
+          <div class="col mb-5">
+            <div class="card h-100 mb-4">
+              <img class="card-img-top img-fluid"
+                [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
+                alt="Foto de {{mascota.nombre}}" style="height: 200px; object-fit: cover;" />
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">{{mascota.nombre}}</h5>
+                  <p>{{mascota.raza}} - {{mascota.edad}}</p>
                 </div>
-            </div>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <h5 class="fw-bolder">Chester</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver
-                                Informacion</a></div>
-                    </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
+                <div class="btn-group">
+                  <a class="btn btn-outline-dark" [routerLink]="['/vermascota', mascota.idmascota]">Ver
+                    Expediente</a>
+      
                 </div>
+              </div>
             </div>
+          </div>
+          }
+          <!-- Si no hay mascotas -->
+          @if (mascotas.length === 0) {
+          <div class="col-12 text-center py-5">
+            <div class="alert alert-secondary" role="alert">
+              Aqui se veran tus pacientes. Pideles a su dueño que otorguen acceso.
+            </div>
+          </div>
+          }
+
         </div>
     </div>
 </section>
@@ -60,3 +62,8 @@
 
   <app-footer></app-footer>
 </body>
+
+
+
+
+

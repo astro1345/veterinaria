@@ -1,68 +1,68 @@
-
 <body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh; margin: 0;">
     @if (logeado === true) {
-          <app-navbar>    </app-navbar>
-    } 
+    <app-navbar> </app-navbar>
+    }
 
     <main style="padding-top: 40px;">
         <div class="container py-5">
-         
 
-            <div class="row align-items-start"> 
 
-         
+            <div class="row align-items-start">
+
+
                 <div class="col-md-6 position-relative" style="height: fit-content;">
-                  
-                        <div class="card shadow" style="position: sticky; top: 20px;">
-                            <!-- Añadido sticky -->
-                            <img class="card-img-top"
-                                [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'"
-                                alt="Foto de {{mascota.nombre}}" style="height: 400px; object-fit: cover;">
 
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h2 class="fw-bolder">{{mascota.nombre}}</h2>
-                                </div>
-                            </div>
+                    <div class="card shadow" style="position: sticky; top: 20px;">
+                        <!-- Añadido sticky -->
+                        <img class="card-img-top"
+                            [src]="mascota.foto || 'https://dummyimage.com/600x400/dee2e6/6c757d.jpg'"
+                            alt="Foto de {{mascota.nombre}}" style="height: 400px; object-fit: cover;">
 
-                            <div class="card-footer p-4 border-top-0 bg-transparent">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <p><strong>Edad:</strong> {{mascota.edad}}</p>
-                                        <p><strong>Raza:</strong> {{mascota.raza}}</p>
-                                    </div>
-                                  
-                                    <div class="col-md-6 mb-3">
-                                        <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac}}</p>
-                                        <p><strong>Telefono de Contacto: </strong>{{duenio.telefono}}</p>
-                                    </div>
-                                   
-                                </div>
-                                    @if (logeado === true) {
-           <div class="text-center">
-                                    <button class="btn " style="background-color: #1eb8b8; color: white;"
-                                        (click)="solicitar()" title="Editar">
-                                        <i class="bi bi-pencil-fill me-1"></i> Solicitar permisos veterinarios
-                                    </button>
-                                </div>
-    } @else {
-        <div class="text-center">
-            <button class="btn " style="background-color: #1eb8b8; color: white;"
-                (click)="solicitar()" title="Editar">
-                <i class="bi bi-pencil-fill me-1"></i> Iniciar sesion para solicitar permisos veterinarios
-            </button>
-        </div>
-
-    }
-                               
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h2 class="fw-bolder">{{mascota.nombre}}</h2>
                             </div>
                         </div>
-                    
 
-                 
+                        <div class="card-footer p-4 border-top-0 bg-transparent">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <p><strong>Edad:</strong> {{mascota.edad}}</p>
+                                    <p><strong>Raza:</strong> {{mascota.raza}}</p>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <p><strong>Fecha Nacimiento:</strong> {{mascota.fechanac}}</p>
+                                    <p><strong>Telefono de Contacto: </strong>{{duenio.telefono}}</p>
+                                </div>
+
+                            </div>
+                            @if (logeado === true) {
+                            <div class="text-center">
+                                <button class="btn " style="background-color: #1eb8b8; color: white;"
+                                    (click)="solicitar()" title="solicitar permisos veterinarios">
+                                    <i class="bi bi-pencil-fill me-1"></i> Solicitar permisos veterinarios
+                                </button>
+                            </div>
+                            } @else {
+                            <div class="text-center">
+                                <button class="btn " style="background-color: #1eb8b8; color: white;"
+                                    (click)="cerrarSesion()" title="Iniciar Sesion">
+                                    <i class="bi bi-pencil-fill me-1"></i> Iniciar sesion para solicitar permisos
+                                    veterinarios
+                                </button>
+                            </div>
+
+                            }
+
+                        </div>
+                    </div>
+
+
+
                 </div>
 
-           
+
             </div>
 
         </div>

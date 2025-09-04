@@ -1,67 +1,67 @@
 <div class="main-content">
-<app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
- <div class="content">
-<section class="py-5 bg-light">
-  <!-- Card Notificaciones alineado a la izquierda -->
-  <div class="d-flex justify-content-start mb-4">
-  <div class="card card-notificaciones">
-      <div class="huella-decorativa" style="top: 20%; left: 5%; transform: rotate(30deg);">🐾</div>
-      <div class="card-body">
-        <h5 class="card-title">Notificaciones</h5>
-        <p class="card-text">Aún no tienes notificaciones.</p>
-      </div>
-    </div>
-  </div>
+  <div class="content">
+    <section class="py-5 bg-light">
+      <br>
+      <app-notificaciones></app-notificaciones>
 
-  <div class="container px-4 px-lg-5 mt-5">
-    <h2 class="fw-bolder mb-4">Mis mascotas</h2>
-    <div class="d-flex justify-content-end mb-3">
-      <button (click)="abrirModal()" class="btn-agregar">
-        <span style="font-size: 22px;">&#43;</span> Agregar Mascota
-      </button>
-    </div>
+      <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Mis mascotas</h2>
+        <div class="d-flex justify-content-end mb-3">
+          <button (click)="abrirModal()" class="btn-agregar">
+            <span style="font-size: 22px;">&#43;</span> Agregar Mascota
+          </button>
+        </div>
 
-    <!-- Modal solo para agregar -->
-    @if (mostrarModal) {
-      <div class="modal-overlay">
-        <app-mascotaform 
-          (guardarMascota)="agregarMascota($event)"
-          (cerrarModal)="cerrarModal()">
-        </app-mascotaform>
-      </div>
-    }
+        <!-- Modal solo para agregar -->
+        @if (mostrarModal) {
+        <div class="modal-overlay">
+          <app-mascotaform (guardarMascota)="agregarMascota($event)" (cerrarModal)="cerrarModal()">
+          </app-mascotaform>
+        </div>
+        }
 
-    <!-- Listado de mascotas -->
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      @for (mascota of mascotas; track mascota.idmascota) {
-        <div class="col mb-5">
-          <div class="card h-100 mb-4">
-            <img class="card-img-top img-fluid" 
-     [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" 
-     alt="Foto de {{mascota.nombre}}" 
-     style="height: 200px; object-fit: cover;" />
-            <div class="card-body p-4">
-              <div class="text-center">
-                <h5 class="fw-bolder">{{mascota.nombre}}</h5>
-                <p>{{mascota.raza}} - {{mascota.edad}}</p>
+        <!-- Listado de mascotas -->
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          @for (mascota of mascotas; track mascota.idmascota) {
+          <div class="col mb-5">
+            <div class="card h-100 mb-4">
+              <img class="card-img-top img-fluid"
+                [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
+                alt="Foto de {{mascota.nombre}}" style="height: 200px; object-fit: cover;" />
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">{{mascota.nombre}}</h5>
+                  <p>{{mascota.raza}} - {{mascota.edad}}</p>
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
+                <div class="btn-group">
+                  <a class="btn btn-outline-dark" [routerLink]="['/perfilmascota', mascota.idmascota]">Ver
+                    Información</a>
+                  <button class="btn btn-danger p-2" (click)="eliminarMascota(mascota.idmascota)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
-  <div class="btn-group">
-    <a class="btn btn-outline-dark" [routerLink]="['/perfilmascota', mascota.idmascota]">Ver Información</a>
-    <button class="btn btn-danger p-2" (click)="eliminarMascota(mascota.idmascota)">
-      <i class="bi bi-trash"></i>
-    </button>
-  </div>
-</div>
           </div>
-        </div>
-      }
-    </div>
-  </div>
-</section>
-</div>
+          }
+          <!-- Si no hay mascotas -->
+          @if (mascotas.length === 0) {
+          <div class="col-12 text-center py-5">
+            <div class="alert alert-secondary" role="alert">
+              Aqui se veran tus mascotas. Haz clic en <strong>"Agregar Mascota"</strong> para empezar.
+            </div>
+          </div>
+          }
 
-<app-footer></app-footer>
-</div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <app-footer></app-footer>
+</div>>

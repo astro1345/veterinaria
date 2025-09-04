@@ -7,9 +7,12 @@ import {
   doc,
   updateDoc,
   Firestore,
-  getDoc, query, where 
+  getDoc, query, where, 
+  docData,
+  documentId
 } from '@angular/fire/firestore';
 import { Session } from './session';
+import { of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +69,24 @@ getMascotas() {
     const mascotaCollection = collection(this.firestore, 'mascotas');
     const mascotaDoc = doc(mascotaCollection, mascotaId);
     return deleteDoc(mascotaDoc);
+  }
+  
+ getMascotasPorPacientes(uid: string) {
+    const userDoc = doc(this.firestore, `users/${uid}`);
+
+    return docData(userDoc).pipe(
+      switchMap((user: any) => {
+        const pacientes: string[] = user?.pacientes || [];
+        if (pacientes.length === 0) {
+          return of([]); // si no tiene pacientes, devuelve array vacío
+        }
+
+        // Consulta a mascotas con where(documentId(), 'in', [...])
+        const mascotasCollection = collection(this.firestore, 'mascotas');
+        const q = query(mascotasCollection, where(documentId(), 'in', pacientes));
+
+        return collectionData(q, { idField: 'idmascota' });
+      })
+    );
   }
 }

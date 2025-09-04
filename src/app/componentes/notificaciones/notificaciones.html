@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center mb-4">
+  <div class="card card-notificaciones shadow-sm w-100">
+    <div class="huella-decorativa">🐾</div>
+    <div class="card-body">
+      <h5 class="card-title">Notificaciones</h5>
+
+
+      @for (notificacion of notificaciones; track notificacion.id) {
+
+
+
+      <!-- Tipo 1: Informacion Tipo 2 solicitud-->
+      @if (notificacion.tipo === '1') {
+
+      <div class="alert alert-info d-flex align-items-start justify-content-between mb-3 align-items-center"
+        role="alert">
+        <div>
+          <strong>Aviso: </strong>{{ notificacion.contenido}}
+        </div>
+        <button type="button" class="btn-close ms-2" aria-label="Cerrar"
+          (click)="borrarNotificacion(notificacion.id )"></button>
+      </div>
+
+
+      } @else {
+
+      <div class="alert alert-warning mb-3" role="alert">
+        <div class="d-flex justify-content-between align-items-start">
+          <p class="mb-2"><strong>Tienes una Solicitud: </strong> {{ notificacion.contenido}}</p>
+
+        </div>
+        <br>
+        <div class="d-flex justify-content-center gap-2">
+          <button class="btn btn-success btn-sm" (click)="aceptarsolicitud(notificacion)">Aceptar</button>
+          <button class="btn btn-danger btn-sm" (click)="rechazarSolicitud(notificacion)">Denegar</button>
+        </div>
+      </div>
+
+      }
+
+      } @empty {
+      <div class="alert alert-info d-flex align-items-start justify-content-between mb-3 align-items-center"
+        role="alert">
+        <div>
+          No tienes notificaciones
+        </div>
+      </div>
+      }
+
+    </div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Users } from '../../servicios/users';
 import { Session } from '../../servicios/session';
 import { Navbar } from "../../componentes/navbar/navbar";
+import { Notificacionesysolitud } from '../../servicios/notificacionesysolitud';
 
 
 @Component({
@@ -14,57 +15,81 @@ import { Navbar } from "../../componentes/navbar/navbar";
   styleUrls: ['./vermascota.scss']
 })
 export class Vermascota implements OnInit {
+  notificacionesService = inject(Notificacionesysolitud);
+  sesionService = inject(Session);
+  userid: string | null = this.sesionService.getUid();
+  notificacion: any = {};
+  solicitante: any = {};
   mascota: any = {};
   duenio: any = {};
   logeado: boolean = false;
   router = inject(Router);
- private userService = inject(Users);
-   private session = inject(Session);
+  userService = inject(Users);
+  mensaje: string = '';
   constructor(
-        private route: ActivatedRoute,
-        private mascotaService: Mascotas,
+    private route: ActivatedRoute,
+    private mascotaService: Mascotas,
 
-  )
-    {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.cargarMascota(id);
-     this.estaLogeado();
+      this.estaLogeado();
     });
-     this.cargarDuenio();
+
   }
 
   async cargarMascota(id: string) {
     try {
       this.mascota = await this.mascotaService.getMascotaById(id);
-      console.log('Mascota cargada:', this.mascota);
+    
+    this.duenio = await this.userService.getUserporid(this.mascota.idduenio);
+ 
+if(this.userid !== null) {
+this.solicitante = await this.userService.getUserporid(this.userid);
+  
+}
+
     } catch (error) {
       console.error('Error cargando mascota:', error);
     }
   }
 
-async cargarDuenio() {
-        try {
-      this.duenio = await this.userService.getUserporid("vxQwREpv90SMAmmCgqBlrioVuYo2");
-      console.log('Duenio cargado:', this.duenio);
-    } catch (error) {
-      console.error('Error cargando duenio:', error);
-    }
-  }
 
   estaLogeado() {
-   this.logeado = this.session.isLoggedIn();
+    this.logeado = this.sesionService.isLoggedIn();
   }
 
-cerrarSesion() {
-  
-        this.router.navigate(['']);
-      }
+  cerrarSesion() {
 
-
-  solicitar() {
+    this.router.navigate(['']);
   }
 
-}
+
+  async solicitar() {
+
+
+    if (this.solicitante.nombre) {
+      this.mensaje = `${this.solicitante.nombre} con email ${this.solicitante.email} quiere ser veterinario de ${this.mascota.nombre}`;
+    } else {
+      this.mensaje = `${this.solicitante.email} quiere ser veterinario de ${this.mascota.nombre}`;
+    }
+
+    this.notificacion = {
+      contenido: this.mensaje,
+      idsolicitante: this.solicitante.uid,
+      idmascota: this.mascota.idmascota,
+      mascota: this.mascota.nombre,
+      tipo:'2'
+    };
+    this.notificacionesService.addNotificacion(this.mascota.idduenio, this.notificacion)
+      .then(() => {
+        alert('Solicitud enviada');
+      })
+      .catch(err => alert('Error al enviar solicitud ' + err));
+
+  }
+
+} 

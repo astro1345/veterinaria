@@ -19,6 +19,7 @@ export class Miperfil {
   private sesionService = inject(Session);
   private router = inject(Router);
 
+  pacientes: any[] = [];
   uid: string | null = this.sesionService.getUid();
   tipoUsuario: string = "2"; // 1 dueño, 2 veterinario
 
@@ -42,6 +43,9 @@ export class Miperfil {
   }
 
   async getUser(uid: string) {
+    
+
+
     try {
       const data: any = await this.userService.getUserporid(uid);
       if (data) {

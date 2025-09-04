@@ -4,12 +4,13 @@ import { Footer } from "../../componentes/footer/footer";
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Mascotas } from '../../servicios/mascotas';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Mascotaform } from '../../componentes/mascotaform/mascotaform';  
+import { Mascotaform } from '../../componentes/mascotaform/mascotaform';
+import { Notificaciones } from "../../componentes/notificaciones/notificaciones";  
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [Navbar, Footer, RouterLink, CommonModule, Mascotaform],
+  imports: [Navbar, Footer, RouterLink, CommonModule, Mascotaform, Notificaciones],
   templateUrl: './inicio.html',
   styleUrl: './inicio.scss'
 })

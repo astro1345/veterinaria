@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { Session } from './session';
-import { doc, getDoc, updateDoc } from '@firebase/firestore';
+import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,6 @@ import { doc, getDoc, updateDoc } from '@firebase/firestore';
 export class Users {
 private firestore = inject(Firestore);
   sesionService = inject(Session);
-  uidDueño: string | null = this.sesionService.getUid();
 
   async getUserporid(uid: string): Promise<any> {
     const userDoc = doc(this.firestore, 'users', uid);
@@ -25,6 +24,11 @@ private firestore = inject(Firestore);
 
     return this.getUserporid(uid).then(user => user.tipo);
  }
+ 
+ getPacientes(uid: string): Promise<any> {
+
+    return this.getUserporid(uid).then(user => user.pacientes);
+ }
 
   updateUser(user: any) {
   if (!user.uid) {
@@ -35,6 +39,11 @@ private firestore = inject(Firestore);
   const { uid, ...datosActualizar } = user;
   return updateDoc(userDoc, datosActualizar);
 }
+async addPaciente(uid: string, pacienteId: string) {
+    const userDoc = doc(this.firestore, 'users', uid);
+    return updateDoc(userDoc, {
+      pacientes: arrayUnion(pacienteId)  // añade el ID si no existe
+    });
 
-
+}
 }
