@@ -6,11 +6,12 @@ import { Users } from '../../servicios/users';
 import { Session } from '../../servicios/session';
 import { Navbar } from "../../componentes/navbar/navbar";
 import { Notificacionesysolitud } from '../../servicios/notificacionesysolitud';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-vermascota',
-  imports: [Footer, Navbar],
+  imports: [Footer, Navbar,DatePipe],
   templateUrl: './vermascota.html',
   styleUrls: ['./vermascota.scss']
 })
@@ -20,9 +21,11 @@ export class Vermascota implements OnInit {
   userid: string | null = this.sesionService.getUid();
   notificacion: any = {};
   solicitante: any = {};
+   vacunas: any[] = [];
   mascota: any = {};
   duenio: any = {};
   logeado: boolean = false;
+  esvet: boolean = true;
   router = inject(Router);
   userService = inject(Users);
   mensaje: string = '';
@@ -37,6 +40,7 @@ export class Vermascota implements OnInit {
       const id = params['id'];
       this.cargarMascota(id);
       this.estaLogeado();
+      this.esVeterinario(id);
     });
 
   }
@@ -58,10 +62,25 @@ this.solicitante = await this.userService.getUserporid(this.userid);
   }
 
 
-  estaLogeado() {
-    this.logeado = this.sesionService.isLoggedIn();
-  }
+ estaLogeado() {
+  this.logeado = this.sesionService.isLoggedIn();
 
+  
+  
+ 
+}
+
+
+esVeterinario(idusuario: string ) {
+  if (idusuario) {
+    this.mascotaService.esvet(idusuario).then(esvet => {
+      this.esvet = esvet;
+      console.log("Es veterinario:", esvet);
+    }).catch(err => console.error(err));
+  } else {
+    console.error("Error: userid is null");
+  }
+}
   cerrarSesion() {
 
     this.router.navigate(['']);

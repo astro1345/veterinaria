@@ -7,7 +7,7 @@ import {
   doc,
   updateDoc,
   Firestore,
-  getDoc, query, where, 
+  getDoc, query, where,
   docData,
   documentId
 } from '@angular/fire/firestore';
@@ -33,45 +33,64 @@ export class Mascotas {
     }
   }
 
-getMascotas() {
-  this.uidDueño = this.sesionService.getUid();
-  const mascotaCollection = collection(this.firestore, 'mascotas');
-  const q = query(mascotaCollection, where('idduenio', '==',this.uidDueño));
-  return collectionData(q, { idField: 'idmascota' });
-}
+  getMascotas() {
+    this.uidDueño = this.sesionService.getUid();
+    const mascotaCollection = collection(this.firestore, 'mascotas');
+    const q = query(mascotaCollection, where('idduenio', '==', this.uidDueño));
+    return collectionData(q, { idField: 'idmascota' });
+  }
 
   addMascota(mascota: any) {
-  const mascotaCollection = collection(this.firestore, 'mascotas');
-  this.uidDueño = this.sesionService.getUid();
-  // Primero agregamos el documento
-  return addDoc(mascotaCollection, mascota).then((docRef) => {
-    
-    return updateDoc(docRef, {
-      idmascota: docRef.id,
-      idduenio: this.uidDueño
-    }).then(() => {
-      return { idmascota: docRef.id, ...mascota };
+    const mascotaCollection = collection(this.firestore, 'mascotas');
+    this.uidDueño = this.sesionService.getUid();
+    // Primero agregamos el documento
+    return addDoc(mascotaCollection, mascota).then((docRef) => {
+
+      return updateDoc(docRef, {
+        idmascota: docRef.id,
+        idduenio: this.uidDueño
+      }).then(() => {
+        return { idmascota: docRef.id, ...mascota };
+      });
     });
-  });
-}
+  }
 
   updateMascota(mascota: any) {
-  if (!mascota.idmascota) {
-    return Promise.reject('No se proporcionó idmascota');
+    if (!mascota.idmascota) {
+      return Promise.reject('No se proporcionó idmascota');
+    }
+
+    const mascotaDoc = doc(this.firestore, 'mascotas', mascota.idmascota);
+    const { idmascota, ...datosActualizar } = mascota;
+    return updateDoc(mascotaDoc, datosActualizar);
   }
-  
-  const mascotaDoc = doc(this.firestore, 'mascotas', mascota.idmascota);
-  const { idmascota, ...datosActualizar } = mascota;
-  return updateDoc(mascotaDoc, datosActualizar);
-}
 
   deleteMascota(mascotaId: string) {
     const mascotaCollection = collection(this.firestore, 'mascotas');
     const mascotaDoc = doc(mascotaCollection, mascotaId);
     return deleteDoc(mascotaDoc);
   }
-  
- getMascotasPorPacientes(uid: string) {
+
+  async esvet(idMascota: string): Promise<boolean> {
+  const uidSesion = this.sesionService.getUid();
+
+  if (!uidSesion) {
+    return false; // No hay sesión
+  }
+
+  const mascotaDoc = doc(this.firestore, 'mascotas', idMascota);
+  const docSnap = await getDoc(mascotaDoc);
+
+  if (!docSnap.exists()) {
+    return false; // Mascota no encontrada
+  }
+
+  const mascotaData: any = docSnap.data();
+  return Array.isArray(mascotaData.veterinarios) && mascotaData.veterinarios.includes(uidSesion);
+}
+
+
+  getMascotasPorPacientes(uid: string) {
     const userDoc = doc(this.firestore, `users/${uid}`);
 
     return docData(userDoc).pipe(

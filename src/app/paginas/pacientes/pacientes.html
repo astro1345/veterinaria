@@ -9,51 +9,60 @@
 
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Mis pacientes</h2>
-      <div class="d-flex justify-content-end mb-3 gap-2">
-  <button class="btn-agregar">
-    <span style="font-size: 22px;">&#43;</span> Agregar
-  </button>
-
+     <div class="d-flex justify-content-end mb-3 gap-2">
   <div class="input-group buscador">
     <span class="input-group-text"><i class="bi bi-search"></i></span>
-    <input type="text" class="form-control" placeholder="Buscar paciente...">
+    <input type="text" class="form-control" placeholder="Buscar paciente..."
+           [(ngModel)]="searchTerm">
   </div>
 </div>
 
-       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          @for (mascota of mascotas; track mascota.idmascota) {
-          <div class="col mb-5">
-            <div class="card h-100 mb-4">
-              <img class="card-img-top img-fluid"
-                [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
-                alt="Foto de {{mascota.nombre}}" style="height: 200px; object-fit: cover;" />
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <h5 class="fw-bolder">{{mascota.nombre}}</h5>
-                  <p>{{mascota.raza}} - {{mascota.edad}}</p>
-                </div>
-              </div>
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
-                <div class="btn-group">
-                  <a class="btn btn-outline-dark" [routerLink]="['/vermascota', mascota.idmascota]">Ver
-                    Expediente</a>
-      
-                </div>
-              </div>
-            </div>
-          </div>
-          }
-          <!-- Si no hay mascotas -->
-          @if (mascotas.length === 0) {
-          <div class="col-12 text-center py-5">
-            <div class="alert alert-secondary" role="alert">
-              Aqui se veran tus pacientes. Pideles a su dueño que otorguen acceso.
-            </div>
-          </div>
-          }
-
-        </div>
+<!-- Si no hay mascotas en absoluto (estado inicial) -->
+@if (mascotas.length === 0) {
+  <div class="col-12 text-center py-5">
+    <div class="alert alert-secondary" role="alert">
+      Aqui se veran tus pacientes. Pideles a su dueño que otorguen acceso.
     </div>
+  </div>
+} @else {
+  <!-- Hay mascotas, mostrar filtradas -->
+  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    @for (mascota of mascotasFiltradas; track mascota.idmascota) {
+      <div class="col mb-5">
+        <div class="card h-100 mb-4">
+          <img class="card-img-top img-fluid"
+               [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
+               alt="Foto de {{mascota.nombre}}" style="height: 200px; object-fit: cover;" />
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder">{{mascota.nombre}}</h5>
+              <p>{{mascota.raza}} - {{mascota.edad}}</p>
+            </div>
+          </div>
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
+            <div class="btn-group ">
+              <a class="btn btn-outline-dark" [routerLink]="['/vermascota', mascota.idmascota]">
+                Ver Expediente
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Si hay mascotas pero ninguna coincide con la búsqueda -->
+    @if (mascotasFiltradas.length === 0) {
+      <div class="col-12 text-center py-5">
+        <div class="alert alert-warning" role="alert">
+          No se encontraron pacientes con ese criterio de búsqueda.
+        </div>
+      </div>
+    }
+  </div>
+}
+
+</div>
+
 </section>
 
 <!-- Footer como componente -->
@@ -62,6 +71,7 @@
 
   <app-footer></app-footer>
 </body>
+
 
 
 

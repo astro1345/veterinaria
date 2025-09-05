@@ -5,9 +5,11 @@ import { Users } from '../../servicios/users';
 import { Session } from '../../servicios/session';
 import { Mascotas } from '../../servicios/mascotas';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-pacientes',
-  imports: [Footer, Navbar, RouterLink],
+  imports: [Footer, Navbar, RouterLink, FormsModule],
   templateUrl: './pacientes.html',
   styleUrl: './pacientes.scss'
 })
@@ -16,7 +18,7 @@ userService = inject(Users);
 sesionService = inject(Session);
 uid: string | null = this.sesionService.getUid();
 pacientes: any[] = [];
-
+ searchTerm: string = '';
 
 getpacientes() {
   this.userService.getPacientes(this.uid!).then(pacientes => {
@@ -55,6 +57,13 @@ getpacientes() {
   });
   }
 
-
+get mascotasFiltradas() {
+    if (!this.searchTerm) return this.mascotas;
+    const term = this.searchTerm.toLowerCase();
+    return this.mascotas.filter(m =>
+      m.nombre.toLowerCase().includes(term) ||
+      m.raza?.toLowerCase().includes(term)
+    );
+  }
 
 }
