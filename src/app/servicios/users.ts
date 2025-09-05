@@ -46,4 +46,12 @@ async addPaciente(uid: string, pacienteId: string) {
     });
 
 }
+
+async addVet(idmascota: string, idvet: string) {
+    const userDoc = doc(this.firestore, 'mascotas', idmascota);
+    return updateDoc(userDoc, {
+      veterinarios: arrayUnion(idvet)  // añade el ID si no existe
+    });
+
+}
 }

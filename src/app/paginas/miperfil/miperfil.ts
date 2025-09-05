@@ -67,14 +67,31 @@ export class Miperfil {
   }
 
   async onSubmit() {
-    if (this.perfilForm.invalid) {
-      this.perfilForm.markAllAsTouched();
-      return;
-    }
-
-
-
+  // Si el formulario es inválido, marcar campos como tocados
+  if (this.perfilForm.invalid) {
+    this.perfilForm.markAllAsTouched();
+    return;
   }
+
+  // Preparar los datos a guardar
+  const perfilActualizado = {
+    uid: this.uid,
+    nombre: this.perfilForm.value.nombre,
+    telefono: this.perfilForm.value.telefono,
+    tipo: this.tipoUsuario, // Modo dueño o veterinario
+    clinica: this.perfilForm.value.clinica,
+    experiencia: this.perfilForm.value.experiencia,
+  };
+
+  try {
+    await this.userService.updateUser(perfilActualizado);
+    alert('Perfil actualizado correctamente');
+  } catch (error) {
+    console.error('Error al actualizar perfil:', error);
+    alert('Ocurrió un error al guardar los cambios');
+  }
+}
+
 
   onToggleTipo(event: Event) {
     const input = event.target as HTMLInputElement;
