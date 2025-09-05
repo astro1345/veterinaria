@@ -12,6 +12,8 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}app-footer {
+  margin-top: auto;
 }
 
 /* Botón Agregar */
@@ -44,12 +46,6 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Card Notificaciones */
-.card-notificaciones {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto 1.5rem auto; /* centrada en móviles */
-}
 
 /* Huella decorativa */
 .huella-decorativa {
@@ -84,9 +80,8 @@
     align-self: flex-end;
   }
 
-  .card-notificaciones {
-    max-width: 28rem;
-  }
+
+
   .card-footer .btn-group {
     flex-direction: row; /* fila en pantallas grandes */
     justify-content: center;
@@ -102,11 +97,9 @@
 
 /* --- Tablets (≥768px) --- */
 @media (min-width: 768px) {
-  .card-notificaciones {
-    max-width: 30rem;
-    margin-left: 2rem;
+.card-notificaciones {
+    max-width: 45rem; /* más ancho en escritorio grande */
   }
-
   .huella-decorativa {
     font-size: 3rem;
     top: 20%;
@@ -120,10 +113,7 @@
 
 /* --- Escritorio (≥1024px) --- */
 @media (min-width: 1024px) {
-   .card-notificaciones {
-    margin-left: 192px; /* vuelve al diseño original */
-    margin-top: 50px;
-  }
+
 
   .huella-decorativa {
     font-size: 3.5rem;

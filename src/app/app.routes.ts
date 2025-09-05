@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { Perfilmascota } from './paginas/perfilmascota/perfilmascota';
+import { Vermascota } from './paginas/vermascota/vermascota';
 
 export const routes: Routes = [
 
   { path: 'perfilmascota/:id', component: Perfilmascota }, 
+  { path: 'vermascota/:id', component: Vermascota }, 
 
 {
     path: '',
@@ -29,6 +31,10 @@ export const routes: Routes = [
     {
     path: 'pacientes',
     loadComponent: () => import('./paginas/pacientes/pacientes').then(m => m.Pacientes)
+  },
+  {
+    path: 'vermascota',
+    loadComponent: () => import('./paginas/vermascota/vermascota').then(m => m.Vermascota)
   }
 
 

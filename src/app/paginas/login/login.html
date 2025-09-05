@@ -1,57 +1,62 @@
-
 <body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh;">
   <main style="flex: 1;">
     <div class="container py-5">
-    <div class="login-container p-4 p-md-5">
-            <h2 class="login-title"><i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión</h2>
-            
-            <form id="loginForm" novalidate>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
-                        <div class="invalid-feedback">
-                            Por favor ingresa un correo electrónico válido.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" id="password" required>
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <div class="invalid-feedback">
-                            Por favor ingresa tu contraseña.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3 d-flex justify-content-between">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="remember">
-                        <label class="form-check-label" for="remember">Recordarme</label>
-                    </div>
-              
-                </div>
-                
-               <div class="d-grid gap-2">
-        <a routerLink="inicio" class="btn btn-primary">Iniciar Sesión</a>
+      <div class="login-container p-4 p-md-5">
+        <h2 class="login-title">
+          <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+        </h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()"> 
+          <!-- Correo electrónico -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              <input type="email" class="form-control" id="email" formControlName="email" placeholder="nombre@ejemplo.com">
             </div>
-                
-                <div class="text-center">
-                    <span>¿No tienes una cuenta? </span>
-                    <a routerLink="registro" >Regístrate</a>
-               
-                </div>
-            </form>
-        </div>
+            @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+              <div class="text-danger">El correo es requerido</div>
+            }
+            @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+              <div class="text-danger">Ingresa un correo válido</div>
+            }
+          </div>
+
+          <!-- Contraseña -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="password" formControlName="password">
+             
+            </div>
+            @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+              <div class="text-danger">La contraseña es requerida</div>
+            }
+          </div>
+
+          <!-- Recordarme -->
+          <div class="mb-3 d-flex justify-content-between">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember" formControlName="remember">
+              <label class="form-check-label" for="remember">Recordarme</label>
+            </div>
+          </div>
+
+          <!-- Botón siempre activo -->
+          <div class="d-grid gap-2">
+            <button  type="submit" class="btn btn-primary"> Iniciar Sesión</button>
+          </div>
+
+          <div class="text-center mt-3">
+            <span>¿No tienes una cuenta? </span>
+               <a routerLink="registro" routerLinkActive="active" class="fw-bold text-decoration-none">Regístrate</a>
+
+          </div>
+        </form>
+      </div>
     </div>
   </main>
-    <app-footer></app-footer>
 
+  <app-footer></app-footer>
 </body>

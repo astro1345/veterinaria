@@ -1,0 +1,33 @@
+<!-- Botón que abre el modal -->
+<button type="button" class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#qrModal"
+        (click)="generateQrCode()">
+  <i class="bi bi-share-fill me-2"></i>Compartir perfil de {{ nombre || 'Mascota' }}
+</button>
+    
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="qrModalLabel">Compartir perfil de {{ nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <div class="qr-container mb-3">
+          <canvas #qrCodeCanvas></canvas>
+        </div>
+        <p>Puedes escanear el código QR o copiar y compartir el enlace</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-outline-primary" (click)="copyLink()">Copiar enlace</button>
+      </div>
+
+    </div>
+  </div>
+</div>

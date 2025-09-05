@@ -1,0 +1,47 @@
+.card-notificaciones {
+  width: 100%;
+  max-width: 90%; /* aumenta el ancho máximo en móviles y tablet */
+  margin: 0 auto 1.5rem auto; /* centrada en todos los tamaños */
+}
+
+.huella-decorativa {
+  position: absolute;
+  opacity: 0.1;
+  font-size: 2rem;
+  top: 10%;
+  left: 10%;
+}
+
+@media (min-width: 480px) {
+  .card-notificaciones {
+    max-width: 35rem; /* más ancho en móviles grandes / tablets */
+  }
+  .huella-decorativa {
+    font-size: 2.5rem;
+    top: 15%;
+    left: 8%;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-notificaciones {
+    max-width: 40rem; /* más ancho en tablets y escritorio */
+  }
+  .huella-decorativa {
+    font-size: 3rem;
+    top: 18%;
+    left: 6%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-notificaciones {
+    max-width: 45rem; /* más ancho en escritorio grande */
+  }
+  .huella-decorativa {
+    font-size: 3.5rem;
+    top: 20%;
+    left: 5%;
+    transform: rotate(30deg);
+  }
+}

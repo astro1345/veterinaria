@@ -7,14 +7,20 @@ import {
   doc,
   updateDoc,
   Firestore,
-  getDoc,
+  getDoc, query, where, 
+  docData,
+  documentId
 } from '@angular/fire/firestore';
+import { Session } from './session';
+import { of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Mascotas {
   private firestore = inject(Firestore);
+  sesionService = inject(Session);
+  uidDueño: string | null = this.sesionService.getUid();
 
   async getMascotaById(id: string): Promise<any> {
     const mascotaDoc = doc(this.firestore, 'mascotas', id);
@@ -28,17 +34,21 @@ export class Mascotas {
   }
 
 getMascotas() {
+  this.uidDueño = this.sesionService.getUid();
   const mascotaCollection = collection(this.firestore, 'mascotas');
-  return collectionData(mascotaCollection, { idField: 'idmascota' });
+  const q = query(mascotaCollection, where('idduenio', '==',this.uidDueño));
+  return collectionData(q, { idField: 'idmascota' });
 }
 
   addMascota(mascota: any) {
   const mascotaCollection = collection(this.firestore, 'mascotas');
+  this.uidDueño = this.sesionService.getUid();
   // Primero agregamos el documento
   return addDoc(mascotaCollection, mascota).then((docRef) => {
-    // Luego actualizamos el mismo documento para agregar el idmascota
+    
     return updateDoc(docRef, {
-      idmascota: docRef.id
+      idmascota: docRef.id,
+      idduenio: this.uidDueño
     }).then(() => {
       return { idmascota: docRef.id, ...mascota };
     });
@@ -51,7 +61,6 @@ getMascotas() {
   }
   
   const mascotaDoc = doc(this.firestore, 'mascotas', mascota.idmascota);
-  // Creamos un objeto sin idmascota para la actualización
   const { idmascota, ...datosActualizar } = mascota;
   return updateDoc(mascotaDoc, datosActualizar);
 }
@@ -60,5 +69,24 @@ getMascotas() {
     const mascotaCollection = collection(this.firestore, 'mascotas');
     const mascotaDoc = doc(mascotaCollection, mascotaId);
     return deleteDoc(mascotaDoc);
+  }
+  
+ getMascotasPorPacientes(uid: string) {
+    const userDoc = doc(this.firestore, `users/${uid}`);
+
+    return docData(userDoc).pipe(
+      switchMap((user: any) => {
+        const pacientes: string[] = user?.pacientes || [];
+        if (pacientes.length === 0) {
+          return of([]); // si no tiene pacientes, devuelve array vacío
+        }
+
+        // Consulta a mascotas con where(documentId(), 'in', [...])
+        const mascotasCollection = collection(this.firestore, 'mascotas');
+        const q = query(mascotasCollection, where(documentId(), 'in', pacientes));
+
+        return collectionData(q, { idField: 'idmascota' });
+      })
+    );
   }
 }

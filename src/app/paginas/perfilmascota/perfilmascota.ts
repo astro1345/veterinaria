@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Mascotas } from '../../servicios/mascotas';
 import { Mascotaform } from "../../componentes/mascotaform/mascotaform";
-import { CommonModule, DatePipe, NgIf } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Navbar } from '../../componentes/navbar/navbar';
 import { Footer } from '../../componentes/footer/footer';
 import { VacunaService } from '../../servicios/vacuna'; 
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Qrmodal } from "../../componentes/qrmodal/qrmodal";
+import { Session } from '../../servicios/session';
 @Component({
   selector: 'app-perfilmascota',
   standalone: true,
@@ -18,9 +20,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     Mascotaform,
     DatePipe,
     ReactiveFormsModule,
-    
-    NgIf
-  ],
+    Qrmodal
+],
   templateUrl: './perfilmascota.html',
   styleUrl: './perfilmascota.scss'
 })
@@ -31,8 +32,10 @@ export class Perfilmascota implements OnInit {
   mostrarModalVacuna = false;
   editando: boolean = false;
   mostrarModal: boolean = false;
-
-
+  linkMascotaqr: string = 'https://veterinariahn.com/mascota/1232222';
+  sesionService = inject(Session);
+   userid: string | null = this.sesionService.getUid();
+  router = inject(Router);
   constructor(
     
     private route: ActivatedRoute,
@@ -63,7 +66,11 @@ export class Perfilmascota implements OnInit {
   async cargarMascota(id: string) {
     try {
       this.mascota = await this.mascotaService.getMascotaById(id);
-      console.log('Mascota cargada:', this.mascota);
+//solo el dueño puede acceder
+      if (this.mascota.idduenio != this.userid) {
+ alert('No tienes permiso para acceder a esta mascota');
+      this.router.navigate(['inicio']);
+      }
     } catch (error) {
       console.error('Error cargando mascota:', error);
     }
