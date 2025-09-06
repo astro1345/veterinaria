@@ -67,9 +67,10 @@
                                 <h5 class="mb-0">
                                     <i class="bi bi-syringe me-2"></i>Historial de Vacunación y Tratamientos
                                 </h5>
-                                <button class="btn-agregar">
+                                <button class="btn-agregar" (click)="abrirFormularioVacuna()">
                                     <i class="bi bi-plus-circle"></i> Agregar
                                 </button>
+
                             </div>
                         </div>
 
@@ -138,6 +139,73 @@
 
     </main>
 
+    <!-- Overlay para el fondo oscuro -->
+    @if (mostrarModalVacuna) {
+    <div class="modal-backdrop fade show"></div>
+    }
 
+    <!-- Modal -->
+    @if (mostrarModalVacuna) {
+    <div class="modal fade show" tabindex="-1" [ngStyle]="{'display': 'block'}" role="dialog" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #1eb8b8; color: white;">
+                    <h5 class="modal-title">{{ vacunaForm.value.id ? 'Editar ' : 'Agregar ' }} vacuna o tratamiento</h5>
+                    <button type="button" class="btn-close" (click)="cerrarModalVacuna()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="vacunaForm" (ngSubmit)="guardarVacuna()">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre </label>
+                            <input type="text" id="nombre" formControlName="nombre" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo </label>
+                            <select id="tipo" formControlName="tipo" class="form-select">
+                                <option value="">Seleccione</option>
+                                <option value="Vacuna">Vacuna</option>
+                                <option value="Tratamiento">Tratamiento</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha de aplicación</label>
+                            <input type="date" id="fecha" formControlName="fecha" class="form-control" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cantidad" class="form-label">Duración</label>
+                                <select id="cantidad" formControlName="cantidad" class="form-select">
+                                    <option value="">Cantidad</option>
+                                    <option *ngFor="let n of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="n">{{n}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="periodo" class="form-label">Período</label>
+                                <select id="periodo" formControlName="periodo" class="form-select">
+                                    <option value="">Seleccione período</option>
+                                    <option value="mes(es)">Mes(es)</option>
+                                    <option value="año(s)">Año(s)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="notas" class="form-label">Notas</label>
+                            <textarea id="notas" formControlName="notas" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-danger" (click)="cerrarModalVacuna()">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
     <app-footer></app-footer>
 </body>
