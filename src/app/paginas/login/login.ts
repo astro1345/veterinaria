@@ -39,6 +39,7 @@ export class Login {
         if (credencial.user) {
           const uid = credencial.user.uid;
                   localStorage.setItem('uid', uid);
+                  localStorage.setItem('email', email!);
             this.router.navigate(['/inicio']);
         }
       })

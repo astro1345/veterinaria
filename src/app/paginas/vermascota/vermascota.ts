@@ -50,8 +50,7 @@ export class Vermascota implements OnInit {
       fecha: ['', Validators.required],
       cantidad: ['', Validators.required],
       periodo: ['', Validators.required],
-      notas: [''],
-      agregadoPor: [''] 
+      notas: ['']
     });
   }
 
@@ -134,18 +133,33 @@ export class Vermascota implements OnInit {
     document.body.style.overflow = '';
   }
 
-  guardarVacuna() {
-    if (this.vacunaForm.invalid) {
-      this.vacunaForm.markAllAsTouched();
-      return;
-    }
-
-    const vacunaData = this.vacunaForm.value;
-    this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
-      .then(() => {
-        this.cerrarModalVacuna();
-      })
-      .catch(err => alert('Error agregando vacuna: ' + err));
+guardarVacuna() {
+  if (this.vacunaForm.invalid) {
+    this.vacunaForm.markAllAsTouched();
+    return;
   }
+
+
+  const emailUsuario = this.solicitante?.email || this.sesionService.getemail();
+  const notasActuales = this.vacunaForm.get('notas')?.value || '';
+
+  // Concatenar lo que ya estaba con el "Creado por..."
+  const nuevasNotas = `${notasActuales}\n-Agregado por ${emailUsuario}`;
+
+  // Actualizar el campo notas
+  this.vacunaForm.patchValue({
+    notas: nuevasNotas
+  });
+
+  const vacunaData = this.vacunaForm.value;
+
+  this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
+    .then(() => {
+      this.cerrarModalVacuna();
+    })
+    .catch(err => alert('Error agregando vacuna: ' + err));
+}
+
+
 
 }

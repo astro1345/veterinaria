@@ -5,7 +5,7 @@ import { Mascotaform } from "../../componentes/mascotaform/mascotaform";
 import { CommonModule, DatePipe } from '@angular/common';
 import { Navbar } from '../../componentes/navbar/navbar';
 import { Footer } from '../../componentes/footer/footer';
-import { VacunaService } from '../../servicios/vacuna'; 
+import { VacunaService } from '../../servicios/vacuna';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Qrmodal } from "../../componentes/qrmodal/qrmodal";
@@ -21,7 +21,7 @@ import { Session } from '../../servicios/session';
     DatePipe,
     ReactiveFormsModule,
     Qrmodal
-],
+  ],
   templateUrl: './perfilmascota.html',
   styleUrl: './perfilmascota.scss'
 })
@@ -34,23 +34,22 @@ export class Perfilmascota implements OnInit {
   mostrarModal: boolean = false;
   linkMascotaqr: string = 'https://veterinariahn.com/mascota/1232222';
   sesionService = inject(Session);
-   userid: string | null = this.sesionService.getUid();
+  userid: string | null = this.sesionService.getUid();
   router = inject(Router);
   constructor(
-    
+
     private route: ActivatedRoute,
     private mascotaService: Mascotas,
     private vacunaService: VacunaService,
-     private fb: FormBuilder
-  )
-   {
+    private fb: FormBuilder
+  ) {
     this.vacunaForm = this.fb.group({
-      id: [null], 
+      id: [null],
       nombre: ['', Validators.required],
       tipo: ['', Validators.required],
       fecha: ['', Validators.required],
       cantidad: ['', Validators.required],
-      periodo: ['',Validators.required] ,
+      periodo: ['', Validators.required],
       notas: ['']
     });
   }
@@ -66,10 +65,10 @@ export class Perfilmascota implements OnInit {
   async cargarMascota(id: string) {
     try {
       this.mascota = await this.mascotaService.getMascotaById(id);
-//solo el dueño puede acceder
+      //solo el dueño puede acceder
       if (this.mascota.idduenio != this.userid) {
- alert('No tienes permiso para acceder a esta mascota');
-      this.router.navigate(['inicio']);
+        alert('No tienes permiso para acceder a esta mascota');
+        this.router.navigate(['inicio']);
       }
     } catch (error) {
       console.error('Error cargando mascota:', error);
@@ -107,14 +106,14 @@ export class Perfilmascota implements OnInit {
 
 
 
-abrirFormularioVacuna(vacuna: any = null) {
+  abrirFormularioVacuna(vacuna: any = null) {
     if (vacuna) {
       // Carga datos en el formulario para editar
       this.vacunaForm.setValue({
         id: vacuna.id,
         nombre: vacuna.nombre || '',
         tipo: vacuna.tipo || '',
-        fecha: vacuna.fecha ? vacuna.fecha.substring(0,10) : '', // formato YYYY-MM-DD
+        fecha: vacuna.fecha ? vacuna.fecha.substring(0, 10) : '', // formato YYYY-MM-DD
         cantidad: vacuna.cantidad || '',
         periodo: vacuna.periodo || '',
         notas: vacuna.notas || ''
@@ -123,14 +122,14 @@ abrirFormularioVacuna(vacuna: any = null) {
       this.vacunaForm.reset();
 
     }
-  this.mostrarModalVacuna = true;
-  document.body.style.overflow = 'hidden';
-}
+    this.mostrarModalVacuna = true;
+    document.body.style.overflow = 'hidden';
+  }
 
-cerrarModalVacuna() {
-  this.mostrarModalVacuna = false;
-  document.body.style.overflow = '';
-}
+  cerrarModalVacuna() {
+    this.mostrarModalVacuna = false;
+    document.body.style.overflow = '';
+  }
 
  guardarVacuna() {
   if (this.vacunaForm.invalid) {
@@ -138,29 +137,35 @@ cerrarModalVacuna() {
     return;
   }
 
+
+  const emailUsuario = this.sesionService.getemail();
+  const notasActuales = this.vacunaForm.get('notas')?.value || '';
+
+  // Concatenar lo que ya estaba con el "Creado por..."
+  const nuevasNotas = `${notasActuales}\n-Agregado por ${emailUsuario}`;
+
+  // Actualizar el campo notas
+  this.vacunaForm.patchValue({
+    notas: nuevasNotas
+  });
+
   const vacunaData = this.vacunaForm.value;
 
-  if (vacunaData.id) {
-    this.vacunaService.updateVacuna(this.mascota.idmascota, vacunaData)
-      .then(() => {
-        this.cerrarModalVacuna();
-      });
-  } else {
-    this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
-      .then(() => {
-        this.cerrarModalVacuna();
-      })
-      .catch(err => alert('Error agregando vacuna: ' + err));
-  }
+  this.vacunaService.addVacuna(this.mascota.idmascota, vacunaData)
+    .then(() => {
+      this.cerrarModalVacuna();
+    })
+    .catch(err => alert('Error agregando vacuna: ' + err));
 }
+
 
 
   borrarVacuna(mascota: any, vacuna: any) {
 
 
-        if (confirm('¿Estás seguro de que quieres eliminar esta vacuna?')) {
+    if (confirm('¿Estás seguro de que quieres eliminar esta vacuna?')) {
       this.vacunaService.deleteVacuna(mascota.idmascota, vacuna.id);
     }
-   
+
   }
 }
