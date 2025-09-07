@@ -39,6 +39,7 @@
 /* Card */
 .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .card:hover {
@@ -66,13 +67,13 @@
 
 /* Botones */
 .card-footer .btn {
-  width: 100%; /* ocupa todo el ancho en móvil */
-  white-space: normal; /* permite que el texto haga wrap */
+  width: 100%;
+  white-space: normal;    /* Permite saltos de línea */
+  word-wrap: break-word;  /* Parte palabras largas */
   text-align: center;
   padding: 8px 12px;
-  font-size: 0.95rem;
+  font-size: 13px;        /* tamaño fijo */
 }
-
 /* --- Teléfonos grandes (≥480px) --- */
 @media (min-width: 480px) {
   .btn-agregar {

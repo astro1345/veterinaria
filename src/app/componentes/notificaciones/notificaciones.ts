@@ -49,11 +49,13 @@ export class Notificaciones implements OnInit {
       })
       .catch(err => alert('Error al enviar solicitud ' + err));
 
-
-
 this.userService.addPaciente(notificacion.idsolicitante, notificacion.idmascota)
   .then(() => console.log("Paciente usr " + notificacion.idsolicitante + " agregado " + notificacion.idmascota + " correctamente"))
   .catch(err => console.error("Error al agregar paciente:", err));
+
+  this.userService.addVet(notificacion.idmascota, notificacion.idsolicitante)
+  .then(() => console.log("Mascota " + notificacion.idmascotae + " agregado " + notificacion.idsolicitante + " correctamente"))
+  .catch(err => console.error("Error al agregar veterinario:", err));
 
   }
 

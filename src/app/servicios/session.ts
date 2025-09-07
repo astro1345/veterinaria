@@ -15,6 +15,9 @@ constructor() {}
   getUid(): string | null {
     return localStorage.getItem('uid');
   }
+getemail(): string | null {
+    return localStorage.getItem('email');
+  }
 
   clearUid() {
     localStorage.removeItem('uid');

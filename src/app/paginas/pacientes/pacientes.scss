@@ -43,15 +43,56 @@
   }
 }
 
-/* Cards de pacientes */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}app-footer {
+  margin-top: auto;
+}
+
+ 
+
+
+/* Card */
 .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
+
+
+
+/* Contenedor de botones dentro de la card */
+.card-footer .btn-group {
+  display: flex;
+  flex-direction: column; /* columna en móvil */
+  gap: 0.5rem;
+  width: 100%;
+  align-items: center;
+}
+
+/* Botones */
+.card-footer .btn {
+  width: 100%;
+  white-space: normal;    /* Permite saltos de línea */
+  word-wrap: break-word;  /* Parte palabras largas */
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 13px;        /* tamaño fijo */
+}
+
 
 /* Ajuste de filas y columnas (Mobile First) */
 .row-cols-2 {
@@ -62,11 +103,22 @@
   .row-cols-2 {
     row-gap: 1.5rem;
   }
+  .card-footer .btn-group {
+    flex-direction: row; /* fila en pantallas grandes */
+    justify-content: center;
+    width: auto;
+  }
+
+  
 }
 
 @media (min-width: 768px) {
   .row-cols-md-3 {
     row-gap: 2rem;
+  }
+     .card-footer .btn {
+    width: auto; /* ancho automático */
+    white-space: nowrap; /* texto en una línea */
   }
 }
 
@@ -92,3 +144,9 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
+
+
+
+
+
