@@ -10,6 +10,7 @@ import { VacunaService } from '../../servicios/vacuna';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Qrmodal } from "../../componentes/qrmodal/qrmodal";
 import { Session } from '../../servicios/session';
+import { Moduloexamenes } from "../../componentes/moduloexamenes/moduloexamenes";
 @Component({
   selector: 'app-perfilmascota',
   standalone: true,
@@ -20,8 +21,9 @@ import { Session } from '../../servicios/session';
     Mascotaform,
     DatePipe,
     ReactiveFormsModule,
-    Qrmodal
-  ],
+    Qrmodal,
+    Moduloexamenes
+],
   templateUrl: './perfilmascota.html',
   styleUrl: './perfilmascota.scss'
 })
@@ -36,6 +38,8 @@ export class Perfilmascota implements OnInit {
   sesionService = inject(Session);
   userid: string | null = this.sesionService.getUid();
   router = inject(Router);
+  
+ emailUsuario: string| null = this.sesionService.getemail();
   constructor(
 
     private route: ActivatedRoute,
@@ -138,11 +142,11 @@ export class Perfilmascota implements OnInit {
   }
 
 
-  const emailUsuario = this.sesionService.getemail();
+
   const notasActuales = this.vacunaForm.get('notas')?.value || '';
 
   // Concatenar lo que ya estaba con el "Creado por..."
-  const nuevasNotas = `${notasActuales}\n-Agregado por ${emailUsuario}`;
+  const nuevasNotas = `${notasActuales}\n-Agregado por ${this.emailUsuario}`;
 
   // Actualizar el campo notas
   this.vacunaForm.patchValue({
@@ -168,4 +172,7 @@ export class Perfilmascota implements OnInit {
     }
 
   }
+
+
+
 }
