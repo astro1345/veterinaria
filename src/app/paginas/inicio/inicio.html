@@ -1,67 +1,86 @@
-<div class="main-content">
-  <app-navbar></app-navbar>
+<div class="main-content" role="main">
+  <app-navbar aria-label="Barra de navegación principal"></app-navbar>
 
   <div class="content">
-    <section class="py-5 bg-light">
-      <br>
-      <app-notificaciones></app-notificaciones>
+    <section class="py-5 bg-light" aria-labelledby="titulo-mascotas">
+      <app-notificaciones aria-label="Notificaciones importantes"></app-notificaciones>
 
       <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Mis mascotas</h2>
+        <h2 id="titulo-mascotas" class="fw-bolder mb-4" tabindex="0">Mis mascotas</h2>
+        
         <div class="d-flex justify-content-end mb-3">
-          <button (click)="abrirModal()" class="btn-agregar">
-            <span style="font-size: 22px;">&#43;</span> Agregar Mascota
+          <button (click)="abrirModal()" class="btn-agregar" aria-label="Agregar nueva mascota">
+            <span style="font-size: 22px;" aria-hidden="true">&#43;</span> Agregar Mascota
           </button>
         </div>
 
         <!-- Modal solo para agregar -->
         @if (mostrarModal) {
-        <div class="modal-overlay">
-          <app-mascotaform (guardarMascota)="agregarMascota($event)" (cerrarModal)="cerrarModal()">
+        <div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+          <h3 id="modal-titulo" class="visually-hidden">Formulario para agregar mascota</h3>
+          <app-mascotaform 
+            (guardarMascota)="agregarMascota($event)" 
+            (cerrarModal)="cerrarModal()" 
+            aria-label="Formulario de registro de mascota">
           </app-mascotaform>
         </div>
         }
 
         <!-- Listado de mascotas -->
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" role="list">
           @for (mascota of mascotas; track mascota.idmascota) {
-          <div class="col mb-5">
-            <div class="card h-100 mb-4">
-              <img class="card-img-top img-fluid"
-                [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
-                alt="Foto de {{mascota.nombre}}" style="height: 200px; object-fit: cover;" />
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <h5 class="fw-bolder">{{mascota.nombre}}</h5>
-                  <p>{{mascota.raza}} - {{mascota.edad}}</p>
-                </div>
-              </div>
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
-                <div class="btn-group">
-                  <a class="btn btn-outline-dark" [routerLink]="['/perfilmascota', mascota.idmascota]">Ver
-                    Información</a>
-                  <button class="btn btn-danger p-2" (click)="eliminarMascota(mascota.idmascota)">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="col mb-5" role="listitem" tabindex="0"
+     [attr.aria-labelledby]="'mascota-' + mascota.idmascota + '-nombre'">
+
+  <div class="card h-100 mb-4">
+    <img class="card-img-top img-fluid"
+         [src]="mascota.foto || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'"
+         [attr.alt]="'Foto de ' + mascota.nombre"
+         style="height: 200px; object-fit: cover;" />
+
+    <div class="card-body p-4">
+      <div class="text-center">
+        <h5 id="mascota-{{mascota.idmascota}}-nombre" class="fw-bolder" tabindex="0">
+          {{mascota.nombre}}
+        </h5>
+        <p tabindex="0">{{mascota.raza}} - {{mascota.edad}}</p>
+      </div>
+    </div>
+
+    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent pb-3">
+      <div class="btn-group" role="group" 
+           [attr.aria-label]="'Acciones para la mascota ' + mascota.nombre">
+
+        <a class="btn btn-outline-dark"
+           [routerLink]="['/perfilmascota', mascota.idmascota]"
+           [attr.aria-label]="'Ver información de ' + mascota.nombre">
+          Ver Información
+        </a>
+
+        <button class="btn btn-danger p-2" 
+                (click)="eliminarMascota(mascota.idmascota)"
+                [attr.aria-label]="'Eliminar mascota ' + mascota.nombre">
+          <i class="bi bi-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
           }
+
           <!-- Si no hay mascotas -->
           @if (mascotas.length === 0) {
           <div class="col-12 text-center py-5">
-            <div class="alert alert-secondary" role="alert">
-              Aqui se veran tus mascotas. Haz clic en <strong>"Agregar Mascota"</strong> para empezar.
+            <div class="alert alert-secondary" role="alert" tabindex="0" aria-live="polite">
+              Aqui se verán tus mascotas. Haz clic en 
+              <strong>"Agregar Mascota"</strong> para empezar.
             </div>
           </div>
           }
-
         </div>
       </div>
-
     </section>
   </div>
 
-  <app-footer></app-footer>
+  <app-footer aria-label="Pie de página del sitio"></app-footer>
 </div>

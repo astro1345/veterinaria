@@ -1,7 +1,7 @@
 <!-- mascota-form.component.html -->
-<div class="modal-content">
+<div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-header">
-    <h5 class="modal-title">
+    <h5 class="modal-title" id="modalTitle">
       @if (esEdicion) {
         Modificar Mascota
       } @else {
@@ -9,47 +9,51 @@
       }
     </h5>
 
-    <button type="button" class="close" (click)="onCancel()">&times;</button>
+    <button type="button" class="btn-close" (click)="onCancel()" aria-label="Cerrar"></button>
   </div>
+
   <div class="modal-body">
     <form [formGroup]="mascotaForm" (ngSubmit)="onSubmit()">
+      <!-- Nombre -->
       <div class="form-group">
         <label for="nombre">Nombre</label>
-        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <input type="text" class="form-control" id="nombre" formControlName="nombre" aria-required="true" />
         @if (mascotaForm.get('nombre')?.invalid && mascotaForm.get('nombre')?.touched) {
-          <div class="text-danger">
+          <div class="text-danger" role="alert">
             Nombre es requerido
           </div>
         }
       </div>
-      
 
-      
+      <!-- Raza -->
       <div class="form-group">
         <label for="raza">Raza</label>
-        <input type="text" class="form-control" id="raza" formControlName="raza">
+        <input type="text" class="form-control" id="raza" formControlName="raza" aria-required="true" />
         @if (mascotaForm.get('raza')?.invalid && mascotaForm.get('raza')?.touched) {
-          <div class="text-danger">
+          <div class="text-danger" role="alert">
             Raza es requerida
           </div>
         }
       </div>
-      
+
+      <!-- Fecha de Nacimiento -->
       <div class="form-group">
         <label for="fechanac">Fecha de Nacimiento</label>
-        <input type="date" class="form-control" id="fechanac" formControlName="fechanac">
+        <input type="date" class="form-control" id="fechanac" formControlName="fechanac" aria-required="true" />
         @if (mascotaForm.get('fechanac')?.invalid && mascotaForm.get('fechanac')?.touched) {
-          <div class="text-danger">
+          <div class="text-danger" role="alert">
             Fecha de nacimiento es requerida
           </div>
         }
       </div>
-         <div class="form-group">
+
+      <!-- URL Foto -->
+      <div class="form-group">
         <label for="foto">URL Foto</label>
-        <input type="text" class="form-control" id="foto" formControlName="foto">
-    
+        <input type="text" class="form-control" id="foto" formControlName="foto" aria-label="URL de la foto de la mascota" />
       </div>
-      
+
+      <!-- Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
         <button type="submit" class="btn btn-primary" [disabled]="mascotaForm.invalid">Guardar</button>

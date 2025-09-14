@@ -2,30 +2,37 @@
 <button type="button" class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#qrModal"
-        (click)="generateQrCode()">
-  <i class="bi bi-share-fill me-2"></i>Compartir perfil de {{ nombre || 'Mascota' }}
+        (click)="generateQrCode()"
+        [attr.aria-label]="'Compartir perfil de ' + (nombre || 'Mascota')">
+  <i class="bi bi-share-fill me-2"></i> Compartir perfil de {{ nombre || 'Mascota' }}
 </button>
     
 <!-- Modal Bootstrap -->
-<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="qrModal" tabindex="-1"
+     role="dialog"
+     aria-labelledby="qrModalLabel"
+     aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
 
+      <!-- Cabecera del modal -->
       <div class="modal-header">
         <h5 class="modal-title" id="qrModalLabel">Compartir perfil de {{ nombre }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
+      <!-- Cuerpo del modal -->
       <div class="modal-body text-center">
-        <div class="qr-container mb-3">
+        <div class="qr-container mb-3" role="img" [attr.aria-label]="'Código QR para ' + nombre">
           <canvas #qrCodeCanvas></canvas>
         </div>
         <p>Puedes escanear el código QR o copiar y compartir el enlace</p>
       </div>
 
+      <!-- Pie del modal -->
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button class="btn btn-outline-primary" (click)="copyLink()">Copiar enlace</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cerrar modal">Cerrar</button>
+        <button class="btn btn-outline-primary" (click)="copyLink()" aria-label="Copiar enlace del perfil">Copiar enlace</button>
       </div>
 
     </div>
