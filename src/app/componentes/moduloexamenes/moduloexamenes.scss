@@ -1,0 +1,96 @@
+/* Mover botones debajo del texto en móviles */
+@media (max-width: 576px) {
+  .vacuna-item {
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px;
+  }
+
+  .vacuna-item .d-flex.gap-2 {
+    flex-direction: row; 
+    gap: 8px;
+  }
+
+  .btn-agregar {
+    width: 50%;       
+    font-size: 0.75rem;
+    padding: 6px 6px;
+  }
+  
+
+}
+.card {
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+/* Botón agregar */
+.btn-agregar {
+  background-color: #1eb8b8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.btn-agregar:hover {
+  background-color: #17a2a2;
+  transition: background-color 0.3s ease;
+}
+
+/* Lista de diagnósticos */
+.vacuna-item {
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vacuna-item .d-flex {
+  flex-wrap: wrap;      
+  justify-content: start; 
+  gap: 8px;           
+}
+
+.vacuna-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal.fade.show {
+  display: flex !important;       
+  justify-content: center;         
+  align-items: center;             
+  min-height: 100vh;              
+  padding: 1rem;
+}
+
+.modal-dialog {
+  max-width: 500px; 
+  width: 100%;
+  margin: 0;        
+}
+
+.modal-content {
+  border: none;
+  border-radius: 8px;
+  max-width: 95%;
+  margin: 1rem;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}

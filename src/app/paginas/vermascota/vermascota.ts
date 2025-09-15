@@ -9,11 +9,12 @@ import { Notificacionesysolitud } from '../../servicios/notificacionesysolitud';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VacunaService } from '../../servicios/vacuna';
+import { Moduloexamenes } from "../../componentes/moduloexamenes/moduloexamenes";
 
 @Component({
   selector: 'app-vermascota',
   standalone: true,
-  imports: [Footer, Navbar, DatePipe, CommonModule, ReactiveFormsModule],
+  imports: [Footer, Navbar, DatePipe, CommonModule, ReactiveFormsModule, Moduloexamenes],
   templateUrl: './vermascota.html',
   styleUrls: ['./vermascota.scss']
 })
@@ -31,7 +32,8 @@ export class Vermascota implements OnInit {
   router = inject(Router);
   userService = inject(Users);
   mensaje: string = '';
-
+  emailUsuario: string | null = this.sesionService.getemail();
+  
   // 🔹 Nuevo
   vacunaForm: FormGroup;
   mostrarModalVacuna = false;
@@ -140,11 +142,11 @@ guardarVacuna() {
   }
 
 
-  const emailUsuario = this.solicitante?.email || this.sesionService.getemail();
+ 
   const notasActuales = this.vacunaForm.get('notas')?.value || '';
 
   // Concatenar lo que ya estaba con el "Creado por..."
-  const nuevasNotas = `${notasActuales}\n-Agregado por ${emailUsuario}`;
+  const nuevasNotas = `${notasActuales}\n-Agregado por ${this.emailUsuario}`;
 
   // Actualizar el campo notas
   this.vacunaForm.patchValue({

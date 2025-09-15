@@ -1,62 +1,110 @@
 <body style="display: grid; grid-template-rows: 1fr auto; min-height: 100vh;">
-  <main style="flex: 1;">
+  <main role="main" aria-labelledby="login-title" style="flex: 1;">
     <div class="container py-5">
-      <div class="login-container p-4 p-md-5">
-        <h2 class="login-title">
-          <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
-        </h2>
+      <div class="login-container p-4 p-md-5" role="form">
+        
+        <!-- Encabezado -->
+        <section aria-labelledby="login-title">
+          <h2 id="login-title" class="login-title" tabindex="0">
+            <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i> Iniciar Sesión
+          </h2>
+        </section>
 
-        <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()"> 
-          <!-- Correo electrónico -->
-          <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              <input type="email" class="form-control" id="email" formControlName="email" placeholder="nombre@ejemplo.com">
+        <!-- Formulario principal -->
+        <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" aria-describedby="form-instructions">
+          <p id="form-instructions" class="visually-hidden">
+            Completa tu correo electrónico y contraseña para iniciar sesión.
+          </p>
+
+          <section aria-labelledby="section-credenciales">
+            <h3 id="section-credenciales" class="visually-hidden">Credenciales de acceso</h3>
+
+            <!-- Correo electrónico -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <div class="input-group">
+                <span class="input-group-text" id="email-icon">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </span>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       formControlName="email" 
+                       placeholder="nombre@ejemplo.com"
+                       aria-required="true"
+                       aria-describedby="email-icon email-error">
+              </div>
+              @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+                <div id="email-error" class="text-danger" role="alert" tabindex="0">
+                  El correo es requerido
+                </div>
+              }
+              @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+                <div id="email-error" class="text-danger" role="alert" tabindex="0">
+                  Ingresa un correo válido
+                </div>
+              }
             </div>
-            @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
-              <div class="text-danger">El correo es requerido</div>
-            }
-            @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
-              <div class="text-danger">Ingresa un correo válido</div>
-            }
-          </div>
 
-          <!-- Contraseña -->
-          <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <div class="input-group">
-              <span class="input-group-text"><i class="fas fa-lock"></i></span>
-              <input type="password" class="form-control" id="password" formControlName="password">
-             
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <div class="input-group">
+                <span class="input-group-text" id="password-icon">
+                  <i class="fas fa-lock" aria-hidden="true"></i>
+                </span>
+                <input type="password" 
+                       class="form-control" 
+                       id="password" 
+                       formControlName="password"
+                       aria-required="true"
+                       aria-describedby="password-icon password-error">
+              </div>
+              @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+                <div id="password-error" class="text-danger" role="alert" tabindex="0">
+                  La contraseña es requerida
+                </div>
+              }
             </div>
-            @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
-              <div class="text-danger">La contraseña es requerida</div>
-            }
-          </div>
+          </section>
 
-          <!-- Recordarme -->
-          <div class="mb-3 d-flex justify-content-between">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="remember" formControlName="remember">
-              <label class="form-check-label" for="remember">Recordarme</label>
+          <!-- Opciones adicionales -->
+          <section aria-labelledby="section-opciones">
+            <h3 id="section-opciones" class="visually-hidden">Opciones adicionales</h3>
+
+            <div class="mb-3 d-flex justify-content-between">
+              <div class="form-check">
+                <input class="form-check-input" 
+                       type="checkbox" 
+                       id="remember" 
+                       formControlName="remember"
+                       aria-describedby="remember-label">
+                <label id="remember-label" class="form-check-label" for="remember">
+                  Recordarme
+                </label>
+              </div>
             </div>
-          </div>
 
-          <!-- Botón siempre activo -->
-          <div class="d-grid gap-2">
-            <button  type="submit" class="btn btn-primary"> Iniciar Sesión</button>
-          </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" aria-label="Iniciar sesión en el sistema">
+                Iniciar Sesión
+              </button>
+            </div>
 
-          <div class="text-center mt-3">
-            <span>¿No tienes una cuenta? </span>
-               <a routerLink="registro" routerLinkActive="active" class="fw-bold text-decoration-none">Regístrate</a>
-
-          </div>
+            <div class="text-center mt-3">
+              <span>¿No tienes una cuenta? </span>
+              <a routerLink="registro" 
+                 routerLinkActive="active" 
+                 class="fw-bold text-decoration-none"
+                 aria-label="Ir al formulario de registro">
+                Regístrate
+              </a>
+            </div>
+          </section>
         </form>
       </div>
     </div>
   </main>
 
-  <app-footer></app-footer>
+  <app-footer aria-label="Pie de página del sitio"></app-footer>
 </body>
